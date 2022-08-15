@@ -27,5 +27,5 @@ function showAlertError() {
 }
 
 function loginRedirection() {
-    window.location.href = "index.html";
+    window.location.href = "portada.html";
 }
