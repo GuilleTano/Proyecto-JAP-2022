@@ -20,10 +20,8 @@ function showProducts() {
 
                 </div>
             `;
-
         document.getElementById("productsList").innerHTML += row;
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", function () {
