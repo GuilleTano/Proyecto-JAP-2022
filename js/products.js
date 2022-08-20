@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showProducts();
         }
         else {
-            //avisar del error con una alerta por ejemplo
+            alert("Hubo un problema al cargar la pagina");
         }
     });
 });
