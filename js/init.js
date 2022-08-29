@@ -1,12 +1,13 @@
 const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
 const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
-const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/";
+const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/.json";
 const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/";
 const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/";
 const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const PRODUCT_101 = "https://japceibal.github.io/emercado-api/cats_products/101.json";
 //Se agrega la url del JSON para 101 (autos)
+
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
@@ -15,6 +16,11 @@ let showSpinner = function(){
 let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
+
+// **** MOSTRAR EMAIL DE USUARIO LOGUEADO ****
+document.addEventListener("DOMContentLoaded", function(){
+  document.getElementById("navbarNav").innerHTML += `<p style="color:white;"> ${localStorage.getItem("mailUsuario")} </p>`;
+});
 
 let getJSONData = function(url){
     let result = {};
