@@ -1,15 +1,11 @@
-/*
-let actualproduct;
+let productosUrl;
 
-function getCatID() {
-    prodID = localStorage.getItem("catID");
-    actualproduct = `https://japceibal.github.io/emercado-api/cats_products/${prodID}.json`;
-    //window.location = "products.html"
-}
-*/
 function showProducts() {
 
+    console.log(typeof localStorage.getItem("catID"));
+
     for (let producto of listaProductos.products) {
+
         let row = "";
 
         row = `
@@ -33,9 +29,8 @@ function showProducts() {
     }
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
-    getJSONData(PRODUCT_101).then(function (resultado) {
+    getJSONData(PRODUCTS_URL).then(function (resultado) {
         if (resultado.status === "ok") {
             listaProductos = resultado.data;
             showProducts();
