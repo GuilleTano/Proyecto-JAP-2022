@@ -1,5 +1,6 @@
 let precioMin = undefined;
 let precioMax =undefined;
+let buscador = "";
 
 // filtrarProductos() usando .filter | Solo genera el array pero no lo muestra T_T
 /*
@@ -20,33 +21,32 @@ function showProducts() {
 
     document.getElementById("productsList").innerHTML = "";
 
-
     for (let producto of listaProductos.products){
 
         if ((parseInt(producto.cost) >= precioMin || precioMin==undefined) && (parseInt(producto.cost) <= precioMax || precioMax==undefined)){
 
-            let row = `
-            <div class="list-group-item list-group-item-action cursor-active">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="${producto.image}" alt="${producto.description}" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">${producto.name} - ${producto.currency} ${producto.cost}</h4>
-                            <small class="text-muted">${producto.soldCount} vendidos</small>
+            if(producto.name.toLowerCase().includes(buscador.toLowerCase())){
+
+                let row = `
+                <div class="list-group-item list-group-item-action cursor-active">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="${producto.image}" alt="${producto.description}" class="img-thumbnail">
                         </div>
-                        <p class="mb-1">${producto.description}</p>       
+                        <div class="col">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h4 class="mb-1">${producto.name} - ${producto.currency} ${producto.cost}</h4>
+                                <small class="text-muted">${producto.soldCount} vendidos</small>
+                            </div>
+                            <p class="mb-1">${producto.description}</p>       
+                        </div>
                     </div>
-                </div>
+    
+                </div>`;
 
-            </div>`;
-
-            //console.log(row); //Se muestran siempre todos los objetos aunque aplique el filtro
-            document.getElementById("productsList").innerHTML += row;
-
+                document.getElementById("productsList").innerHTML += row;
+            }
         }
-
     }
 }
 
@@ -120,6 +120,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     
         showProducts();
+    });
+
+    // -------------- DESAFIO: BUSCADOR --------------
+    document.getElementById("buscador").addEventListener("input", function(){
+
+        buscador = document.getElementById("buscador").value;
+        showProducts();
+
     });
 
 });
