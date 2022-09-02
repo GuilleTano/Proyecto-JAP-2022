@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
     // ------------ FILTRO --------------
     document.getElementById("boton_filtrar").addEventListener("click", function(){
 
@@ -80,8 +79,47 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         showProducts();
-        
+    });
 
+    // ------------ LIMPIAR --------------
+    document.getElementById("boton_limpiar").addEventListener("click", function(){
+        precioMin = undefined;
+        precioMax = undefined;
+
+        document.getElementById("precio-max").value ="";
+        document.getElementById("precio-min").value ="";
+
+        showProducts();
+    });
+
+    // ------------ ORDEN DESC RELEVANCIA --------------
+    document.getElementById("relevancia").addEventListener("click", function(){
+
+        listaProductos.products.sort(function(a, b){
+            return parseInt(b.soldCount) - parseInt(a.soldCount);
+        });
+
+        showProducts();
+    });
+
+    // ------------ ORDEN DESC PRECIO --------------
+    document.getElementById("mas_caro").addEventListener("click", function(){
+
+        listaProductos.products.sort(function(a, b){
+            return parseInt(b.cost) - parseInt(a.cost);
+        });
+
+        showProducts();
+    });
+
+    // ------------ ORDEN ASC PRECIO --------------
+    document.getElementById("mas_barato").addEventListener("click", function(){
+
+        listaProductos.products.sort(function(a, b){
+            return parseInt(a.cost) - parseInt(b.cost);
+        });
+    
+        showProducts();
     });
 
 });
