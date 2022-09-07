@@ -17,6 +17,12 @@ function filtrarProductos(){
 }
 */
 
+//Funcion para guardar el ID del prducto elegido y redirigir a product-info
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+}
+
 function showProducts() {
 
     document.getElementById("productsList").innerHTML = "";
@@ -28,7 +34,7 @@ function showProducts() {
             if(producto.name.toLowerCase().includes(buscador.toLowerCase())){
 
                 let row = `
-                <div class="list-group-item list-group-item-action cursor-active">
+                <div onclick="setProdID(${producto.id})" class="list-group-item list-group-item-action cursor-active">
                     <div class="row">
                         <div class="col-3">
                             <img src="${producto.image}" alt="${producto.description}" class="img-thumbnail">
