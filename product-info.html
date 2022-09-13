@@ -39,18 +39,47 @@
   <!-- ACA SE MUESTRA LA INFO DEL PRODUCTO -->
   <main class="pb-5">
     <div class="container">
-      <div id="product_info">
+      <br>
+      <div class="col-4" id="product_name">
+      </div>
+      <hr>
+      <div class="col">
+        <div id="product_info">
+        </div>
       </div>
     </div>
     <br>
     <br>
     <!-- ACA SE MUESTRAN LOS COMENTARIOS DEL PRODUCTO-->
     <div class="container">
-      <h3>Comentarios</h2>
-      <div id="product_coments">
+      <div class="col">
+        <h4>Comentarios</h4>
+        <div id="product_coments">
+        </div>
       </div>
     </div>
-
+    <br>
+    <!-- ACA VA LA OPCION DE COMENTAR-->
+    <div class="container">
+      <h4 class="mb-3">Comentar</h4>
+      <div class="col-6">
+        <h6 class="mb-3">Tu opinión:</h6>
+        <textarea id="new_coment" rows="5" cols="80"></textarea>
+      </div>
+      <div class="col-2">
+        <h6 class="mb-3">Tu puntuación:</h6>
+        <select name="score" class="form-select" id="score">
+          <option value="0" hidden selected>Elegí la puntuación</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+      </select>
+      </div>
+    <br>
+      <button type="button" class="btn btn-primary" id="btnEnviarComent">Enviar</button>
+    </div>
   </main>
   <!-- MAIN ORIGINAL
   <main>
