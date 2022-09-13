@@ -33,12 +33,69 @@ function showProdInfo() {
 
 }
 
+function showProdComents(){
+    let productsComents =[];
+    for(let i=0; i<(comProducto).length; i++){
+        
+        //Switch para mostrar el score en estrellas
+        let starScore= 0;
+        switch(comProducto[i].score){
+            case 1: starScore =`<span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>`;
+            break;
+            case 2: starScore =`<span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>`;
+            break;
+            case 3: starScore =`<span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>`;
+            break;
+            case 4: starScore =`<span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>`;
+            break;
+            case 5: starScore =`<span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>`;
+            break;
+        } 
+        
+        productsComents +=`
+        <ul class="list-group">
+            <li class="list-group-item"><strong>${comProducto[i].user}</strong> - ${comProducto[i].dateTime} - ${starScore}<br>
+            ${comProducto[i].description}</li>
+        </ul>`;
+    }
+    document.getElementById("product_coments").innerHTML = productsComents;
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
     getJSONData(PRODUCT_INFO_URL).then(function (resultado) {
         if (resultado.status === "ok") {
             infoProducto = resultado.data;
             showProdInfo();
+        }
+        else {
+            alert("Hubo un problema al cargar la pagina");
+        }
+    });
+    getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultado) {
+        if (resultado.status === "ok") {
+            comProducto = resultado.data;
+            showProdComents();
         }
         else {
             alert("Hubo un problema al cargar la pagina");
