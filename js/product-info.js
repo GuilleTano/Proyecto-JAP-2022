@@ -25,24 +25,13 @@ function showProdInfo() {
     for (let i=0; i<(infoProducto.images).length; i++ ){
     
         let row=`
-        <img src="${infoProducto.images[i]}">   
+        <img src="${infoProducto.images[i]}" class="img-thumbnail">
         `
 
         document.getElementById("product_info").innerHTML += row;
     }
 
 }
-
-/*
-for (let i=0; i<(infoProducto.images).length; i++ ){
-    
-    let row=`
-    <img src="${infoProducto.images[i]}">   
-    `
-}
-*/
-
-
 
 
 document.addEventListener("DOMContentLoaded", function () {
