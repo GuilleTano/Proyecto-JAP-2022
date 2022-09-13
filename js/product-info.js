@@ -25,7 +25,7 @@ function showProdInfo() {
     for (let i=0; i<(infoProducto.images).length; i++ ){
     
         let row=`
-        <img src="${infoProducto.images[i]}" class="img-thumbnail">
+        <img src="${infoProducto.images[i]}" class="img-thumbnail"width="270" height="270">
         `
 
         document.getElementById("product_info").innerHTML += row;
