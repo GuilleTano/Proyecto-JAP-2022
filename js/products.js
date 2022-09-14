@@ -2,21 +2,6 @@ let precioMin = undefined;
 let precioMax =undefined;
 let buscador = "";
 
-// filtrarProductos() usando .filter | Solo genera el array pero no lo muestra T_T
-/*
-function filtrarProductos(){
-
-    //console.log(listaProductos); OBJETO
-    console.log(listaProductos.products); //ARRAY
-
-    let listaFiltrada = listaProductos.products.filter(producto => (parseInt(producto.cost) >= precioMin || precioMin==undefined) && (parseInt(producto.cost) <= precioMax || precioMax==undefined));
-
-    console.log(listaFiltrada); //ARRAY
-    return listaFiltrada;
-
-}
-*/
-
 //Funcion para guardar el ID del prducto elegido y redirigir a product-info
 function setProdID(id) {
     localStorage.setItem("prodID", id);
