@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let newData = document.getElementById("new_coment").value;
         let newScore = parseInt(document.getElementById("score").value);
         let today = new Date();
-        let now= today.toLocaleString();
+        let now= today.toLocaleString("sv-SE");
 
         if (newData === "") {
             faltaDato = true;
