@@ -17,7 +17,21 @@ let hideSpinner = function(){
 
 // **** MOSTRAR EMAIL DE USUARIO LOGUEADO ****
 document.addEventListener("DOMContentLoaded", function(){
-  document.getElementById("navbarNav").innerHTML += `<p style="color:white;"> ${localStorage.getItem("mailUsuario")} </p>`;
+
+  let userMenu =`
+  <div class="dropdown">
+  <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  ${localStorage.getItem("mailUsuario")}
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+    <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="index.html">Cerrar sesión</a></li>
+  </ul>
+  </div>
+  `;
+  document.getElementById("navbarNav").innerHTML += userMenu;
 });
 
 let getJSONData = function(url){
