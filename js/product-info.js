@@ -31,39 +31,20 @@ function showProdInfo() {
     document.getElementById("related_products").innerHTML = showRelatedProducts();
 }
 
-//Cambiar estrellas
 function showStarsScore(puntos) {
     let starScore = 0;
+    let starCheck = `<span class="fa fa-star checked"></span>`;
+    let starEmpty = `<span class="fa fa-star"></span>`;
     switch (puntos) {
-        case 1: starScore = `<span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>`;
+        case 1: starScore = starCheck + starEmpty.repeat(4);
             break;
-        case 2: starScore = `<span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>`;
+        case 2: starScore = starCheck.repeat(2) + starEmpty.repeat(3);
             break;
-        case 3: starScore = `<span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>`;
+        case 3: starScore = starCheck.repeat(3) + starEmpty.repeat(2);
             break;
-        case 4: starScore = `<span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>`;
+        case 4: starScore = starCheck.repeat(4) + starEmpty;
             break;
-        case 5: starScore = `<span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>`;
+        case 5: starScore = starCheck.repeat(5);
             break;
     }
     return starScore;
@@ -86,11 +67,15 @@ function showProdComents() {
 function showRelatedProducts() {
     let relProd="";
     for (let i = 0; i < (infoProducto.relatedProducts).length; i++) {
-        relProd += `
-        <img src="${infoProducto.relatedProducts[i].image}" class="img-thumbnail"width="270" height="270"><br>
-        <p>${infoProducto.relatedProducts[i].name}</p>
-        <p>${infoProducto.relatedProducts[i].id}</p>
-        <hr>
+        relProd +=`
+        <div class="col-3">
+            <div onclick="setProdID(${infoProducto.relatedProducts[i].id})" class="card cursor-active">
+                <img src="${infoProducto.relatedProducts[i].image}" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title">${infoProducto.relatedProducts[i].name}</h5>
+                </div>
+            </div>
+        </div>
         `;
     }
     return relProd;
