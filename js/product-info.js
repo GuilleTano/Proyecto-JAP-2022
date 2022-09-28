@@ -20,13 +20,24 @@ function showProdInfo() {
     document.getElementById("product_name").innerHTML += `<h2>${infoProducto.name}</h2>`;
     document.getElementById("product_info").innerHTML = productoActual;
 
+    let imagesArray=[];
     for (let i = 0; i < (infoProducto.images).length; i++) {
-
-        let imagesArray = `
-        <img src="${infoProducto.images[i]}" class="img-thumbnail"width="270" height="270">
-        `;
-        document.getElementById("product_info").innerHTML += imagesArray;
+        if(i == 0){
+            imagesArray +=`
+            <div class="carousel-item active">
+                <img src="${infoProducto.images[i]}" class="d-block w-50">
+            </div>
+            `;
+        }
+        else{
+            imagesArray +=`
+            <div class="carousel-item">
+                <img src="${infoProducto.images[i]}" class="d-block w-50">
+            </div>
+            `;
+        }
     }
+    document.getElementById("products_images").innerHTML = imagesArray;
 
     document.getElementById("related_products").innerHTML = showRelatedProducts();
 }
@@ -80,7 +91,6 @@ function showRelatedProducts() {
     }
     return relProd;
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
     getJSONData(PRODUCT_INFO_URL).then(function (resultado) {
