@@ -20,19 +20,19 @@ function showProdInfo() {
     document.getElementById("product_name").innerHTML += `<h2>${infoProducto.name}</h2>`;
     document.getElementById("product_info").innerHTML = productoActual;
 
-    let imagesArray=[];
+    let imagesArray="";
     for (let i = 0; i < (infoProducto.images).length; i++) {
         if(i == 0){
             imagesArray +=`
             <div class="carousel-item active">
-                <img src="${infoProducto.images[i]}" class="d-block w-50">
+                <img src="${infoProducto.images[i]}" class="d-block rounded mx-auto">
             </div>
             `;
         }
         else{
             imagesArray +=`
             <div class="carousel-item">
-                <img src="${infoProducto.images[i]}" class="d-block w-50">
+                <img src="${infoProducto.images[i]}" class="d-block rounded mx-auto">
             </div>
             `;
         }
