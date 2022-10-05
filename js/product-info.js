@@ -20,24 +20,24 @@ function showProdInfo() {
     document.getElementById("product_name").innerHTML += `<h2>${infoProducto.name}</h2>`;
     document.getElementById("product_info").innerHTML = productoActual;
 
-    let imagesArray="";
+    let imagesPrd="";
     for (let i = 0; i < (infoProducto.images).length; i++) {
         if(i == 0){
-            imagesArray +=`
+            imagesPrd +=`
             <div class="carousel-item active">
                 <img src="${infoProducto.images[i]}" class="d-block rounded mx-auto">
             </div>
             `;
         }
         else{
-            imagesArray +=`
+            imagesPrd +=`
             <div class="carousel-item">
                 <img src="${infoProducto.images[i]}" class="d-block rounded mx-auto">
             </div>
             `;
         }
     }
-    document.getElementById("products_images").innerHTML = imagesArray;
+    document.getElementById("products_images").innerHTML = imagesPrd;
 
     document.getElementById("related_products").innerHTML = showRelatedProducts();
 }
@@ -92,6 +92,9 @@ function showRelatedProducts() {
     return relProd;
 }
 
+//Hacer funcion para nuevo comentrario
+
+
 document.addEventListener("DOMContentLoaded", function () {
     getJSONData(PRODUCT_INFO_URL).then(function (resultado) {
         if (resultado.status === "ok") {
@@ -120,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let newData = document.getElementById("new_coment").value;
         let newScore = parseInt(document.getElementById("score").value);
         let today = new Date();
-        let now= today.toLocaleString("sv-SE");
+        let datenow= today.toLocaleString("sv-SE");
 
         if (newData === "") {
             faltaDato = true;
@@ -131,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Debe elegir una puntuacion");
         }
         if(!faltaDato){
-            let newComent = `<li class="list-group-item"><strong>${localStorage.getItem("mailUsuario")}</strong> - ${now} - ${showStarsScore(newScore)}<br>
+            let newComent = `<li class="list-group-item"><strong>${localStorage.getItem("mailUsuario")}</strong> - ${datenow} - ${showStarsScore(newScore)}<br>
             ${newData}</li>`;
             document.getElementById("product_coments").innerHTML += newComent;
         }

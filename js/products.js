@@ -18,7 +18,7 @@ function showProducts() {
 
             if(producto.name.toLowerCase().includes(buscador.toLowerCase())){
 
-                let row = `
+                let productsList = `
                 <div onclick="setProdID(${producto.id})" class="list-group-item list-group-item-action cursor-active">
                     <div class="row">
                         <div class="col-3">
@@ -35,7 +35,7 @@ function showProducts() {
     
                 </div>`;
 
-                document.getElementById("productsList").innerHTML += row;
+                document.getElementById("productsList").innerHTML += productsList;
             }
         }
     }
