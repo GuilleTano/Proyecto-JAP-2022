@@ -6,6 +6,9 @@ const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/prod
 const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 
+//URL para el carrito de pruebas
+const CART_PRUEBAS = "https://japceibal.github.io/emercado-api/user_cart/25801.json";
+
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
