@@ -1,21 +1,6 @@
+//------------------------------- CARRITO DE EJEMPLO -------------------------------
 let cantCarrito =0;
 let costoUnidad =0;
-
-class Carrito{
-
-    constructor(image, name, currency, cost, count, subt){
-        this.image= image;
-        this.name= name;
-        this.currency = currency;
-        this.cost= cost;
-        this.count= count;
-        this.subt= subt;
-    }
-
-}
-
-let cart1= new Carrito("OSO TEDDY", "Oso de peluche", 2400, 1, 2400);
-//console.log(cart1);
 
 function showActualCart(){
     let defaultCart="";
@@ -40,12 +25,36 @@ function calcularSubTotal(){
 
     return costoUnidad * cantCarrito;;
 }
-
 function cambiarCant(){
 
     let nuevoSubTot =document.getElementById("cantAct").value * costoUnidad;
     document.getElementById("subTotal").innerHTML = nuevoSubTot;
 }
+
+
+//------------------------------- CARRITO CON OBJETOS -------------------------------
+
+function newSold(){
+    let newCart= "";
+
+    compraNuevaString = localStorage.getItem("compraNueva");
+    compraNueva = JSON.parse(compraNuevaString);
+
+    console.log(compraNueva);
+    
+    newCart +=`<tr>
+    <td style="width:20%"><img src="${compraNueva.miniatura}" width="80" ></td>
+    <td style="width:20%">${compraNueva.nombreP}</td>
+    <td style="width:20%">${compraNueva.monedaP} ${compraNueva.costoP}</td>
+    <td style="width:20%"><input type="text" class="form-control w-25" value="${compraNueva.cantP}" onchange="cambiarCant()" id="cantAct"></td>
+    <td style="width:20%"><strong>${compraNueva.monedaP} <span id="subTotal">${calcularSubTotal()}</span></strong></td>
+    </tr>
+    `;
+
+    document.getElementById("cartTable").innerHTML += newCart;
+}
+
+
 
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -54,9 +63,9 @@ document.addEventListener("DOMContentLoaded", function(){
         if (resultado.status === "ok") {
             actualCart = resultado.data;
             showActualCart(actualCart);
+            newSold();
+            //console.log(actualCart);
 
-            console.log(actualCart);
-            //console.log(typeof actualCart);
         }
         else {
             alert("Hubo un problema al cargar la pagina");

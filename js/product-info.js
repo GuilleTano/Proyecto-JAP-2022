@@ -3,19 +3,15 @@ let productsComents = [];
 function showProdInfo() {
 
     let productoActual = `
-            <div>
-                <div>
-                    <p><strong>Precio</strong> <br>
-                    ${infoProducto.currency} ${infoProducto.cost}</p>
-                    <p><strong>Descripción</strong> <br>
-                    ${infoProducto.description}</p>
-                    <p><strong>Categoria</strong> <br>
-                    ${infoProducto.category}</p>
-                    <p><strong>Cantidad de vendidos</strong> <br>
-                    ${infoProducto.soldCount}</p>   
-                    <p><strong>Imágenes ilustrativas</strong></p>
-                </div>
-            </div>
+            <p><strong>Precio</strong> <br>
+            ${infoProducto.currency} ${infoProducto.cost}</p>
+            <p><strong>Descripción</strong> <br>
+            ${infoProducto.description}</p>
+            <p><strong>Categoria</strong> <br>
+            ${infoProducto.category}</p>
+            <p><strong>Cantidad de vendidos</strong> <br>
+            ${infoProducto.soldCount}</p>   
+            <p><strong>Imágenes ilustrativas</strong></p>
             `;
     document.getElementById("product_name").innerHTML += `<h2>${infoProducto.name}</h2>`;
     document.getElementById("product_info").innerHTML = productoActual;
@@ -92,8 +88,21 @@ function showRelatedProducts() {
     return relProd;
 }
 
-//Hacer funcion para nuevo comentrario
 
+//Funcion para comprar producto
+function Comprar(miniatura, nombreP, monedaP, costoP){
+
+    this.miniatura = miniatura;
+    this.nombreP = nombreP;
+    this.monedaP = monedaP;
+    this.costoP = costoP;
+    this.cantP = 1;
+}
+
+
+
+
+//Hacer funcion para nuevo comentrario
 
 document.addEventListener("DOMContentLoaded", function () {
     getJSONData(PRODUCT_INFO_URL).then(function (resultado) {
@@ -141,4 +150,19 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("new_coment").value="";
         document.getElementById("score").value="0";
     });
+
+
+    //BOTON COMPRAR
+    document.getElementById("boton_comprar").addEventListener("click",function(){
+        
+        let compraNueva = new Comprar(infoProducto.images[0], infoProducto.name, infoProducto.currency, infoProducto.cost);
+        console.log(compraNueva);
+        
+        let compraNuevaString = JSON.stringify(compraNueva);
+        localStorage.setItem("compraNueva", compraNuevaString);
+
+        window.location = "cart.html"
+
+    });
+
 });
