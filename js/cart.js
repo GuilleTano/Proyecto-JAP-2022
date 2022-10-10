@@ -21,15 +21,15 @@ function showActualCart(){
     let defaultCart="";
     for(let i=0; i< actualCart.articles.length; i++){
 
-        cantCarrito = actualCart.articles[i].count;
         costoUnidad = actualCart.articles[i].unitCost;
+        cantCarrito = actualCart.articles[i].count;
 
         defaultCart +=`<tr>
         <td style="width:20%"><img src="${actualCart.articles[i].image}" width="80" ></td>
         <td style="width:20%">${actualCart.articles[i].name}</td>
         <td style="width:20%">${actualCart.articles[i].currency} ${actualCart.articles[i].unitCost}</td>
-        <td style="width:20%"><input type="text" class="form-control w-25" value="${cantCarrito}"></td>
-        <td style="width:20%"><strong>${actualCart.articles[i].currency} ${calcularSubTotal(costoUnidad, cantCarrito)}</strong></td>
+        <td style="width:20%"><input type="text" class="form-control w-25" value="${cantCarrito}" onchange="cambiarCant()" id="cantAct"></td>
+        <td style="width:20%"><strong>${actualCart.articles[i].currency} <span id="subTotal">${calcularSubTotal()}</span></strong></td>
         </tr>
         `;
     }
@@ -38,11 +38,15 @@ function showActualCart(){
 
 function calcularSubTotal(){
 
-    return costoUnidad * cantCarrito;
+    return costoUnidad * cantCarrito;;
 }
-function cambiarCantidad(){
-    return 
+
+function cambiarCant(){
+
+    let nuevoSubTot =document.getElementById("cantAct").value * costoUnidad;
+    document.getElementById("subTotal").innerHTML = nuevoSubTot;
 }
+
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -59,13 +63,5 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     });
 
-
-    document.getElementById("cantidad").addEventListener("input", function(){
-
-        cantCarrito = document.getElementById("cantidad").value;
-        showActualCart();
-
-    });
-    
 
 });
