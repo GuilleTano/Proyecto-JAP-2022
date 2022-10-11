@@ -90,8 +90,9 @@ function showRelatedProducts() {
 
 
 //Funcion para comprar producto
-function Comprar(miniatura, nombreP, monedaP, costoP){
+function Comprar(idP, miniatura, nombreP, monedaP, costoP){
 
+    this.idP = idP;
     this.miniatura = miniatura;
     this.nombreP = nombreP;
     this.monedaP = monedaP;
@@ -155,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //BOTON COMPRAR
     document.getElementById("boton_comprar").addEventListener("click",function(){
         
-        let compraNueva = new Comprar(infoProducto.images[0], infoProducto.name, infoProducto.currency, infoProducto.cost);
+        let compraNueva = new Comprar(infoProducto.id, infoProducto.images[0], infoProducto.name, infoProducto.currency, infoProducto.cost);
         console.log(compraNueva);
         
         let compraNuevaString = JSON.stringify(compraNueva);

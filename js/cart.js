@@ -9,11 +9,13 @@ function showActualCart(){
         costoUnidad = actualCart.articles[i].unitCost;
         cantCarrito = actualCart.articles[i].count;
 
+        idCantidad = (actualCart.articles[i].id).value;
+
         defaultCart +=`<tr>
         <td style="width:20%"><img src="${actualCart.articles[i].image}" width="80" ></td>
         <td style="width:20%">${actualCart.articles[i].name}</td>
-        <td style="width:20%">${actualCart.articles[i].currency} ${actualCart.articles[i].unitCost}</td>
-        <td style="width:20%"><input type="text" class="form-control w-25" value="${cantCarrito}" onchange="cambiarCant()" id="cantAct"></td>
+        <td style="width:20%">${actualCart.articles[i].currency} ${costoUnidad}</td>
+        <td style="width:20%"><input type="text" class="form-control w-25" value="${cantCarrito}" onchange="cambiarCant()" id="${idCantidad}"></td>
         <td style="width:20%"><strong>${actualCart.articles[i].currency} <span id="subTotal">${calcularSubTotal()}</span></strong></td>
         </tr>
         `;
@@ -27,7 +29,7 @@ function calcularSubTotal(){
 }
 function cambiarCant(){
 
-    let nuevoSubTot =document.getElementById("cantAct").value * costoUnidad;
+    let nuevoSubTot =document.getElementById(idCantidad).value * costoUnidad;
     document.getElementById("subTotal").innerHTML = nuevoSubTot;
 }
 
@@ -42,11 +44,13 @@ function newSold(){
 
     console.log(compraNueva);
     
+    idCantidad = (compraNueva.idP).value;
+
     newCart +=`<tr>
     <td style="width:20%"><img src="${compraNueva.miniatura}" width="80" ></td>
     <td style="width:20%">${compraNueva.nombreP}</td>
     <td style="width:20%">${compraNueva.monedaP} ${compraNueva.costoP}</td>
-    <td style="width:20%"><input type="text" class="form-control w-25" value="${compraNueva.cantP}" onchange="cambiarCant()" id="cantAct"></td>
+    <td style="width:20%"><input type="text" class="form-control w-25" value="${compraNueva.cantP}" onchange="cambiarCant()" id="${idCantidad}"></td>
     <td style="width:20%"><strong>${compraNueva.monedaP} <span id="subTotal">${calcularSubTotal()}</span></strong></td>
     </tr>
     `;
@@ -64,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function(){
             actualCart = resultado.data;
             showActualCart(actualCart);
             newSold();
-            //console.log(actualCart);
+            console.log(actualCart);
 
         }
         else {
