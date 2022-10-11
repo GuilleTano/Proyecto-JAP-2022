@@ -10,7 +10,11 @@ function setProdID(id) {
 
 function showProducts() {
 
-    document.getElementById("productsList").innerHTML = "";
+    const listaVacia = document.getElementById("productsList");
+
+    if(!listaVacia){
+        return;
+    }
 
     for (let producto of listaProductos.products){
 
@@ -35,7 +39,7 @@ function showProducts() {
     
                 </div>`;
 
-                document.getElementById("productsList").innerHTML += productsList;
+                listaVacia.innerHTML += productsList;
             }
         }
     }
@@ -53,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ------------ FILTRO --------------
-    document.getElementById("boton_filtrar").addEventListener("click", function(){
+    document.getElementById("boton_filtrar")?.addEventListener("click", function(){
 
         if (document.getElementById("precio-min").value !=""){
             precioMin= parseInt(document.getElementById("precio-min").value);
@@ -73,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ------------ LIMPIAR --------------
-    document.getElementById("boton_limpiar").addEventListener("click", function(){
+    document.getElementById("boton_limpiar")?.addEventListener("click", function(){
         precioMin = undefined;
         precioMax = undefined;
 
@@ -84,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ------------ ORDEN DESC RELEVANCIA --------------
-    document.getElementById("relevancia").addEventListener("click", function(){
+    document.getElementById("relevancia")?.addEventListener("click", function(){
 
         listaProductos.products.sort(function(a, b){
             return parseInt(b.soldCount) - parseInt(a.soldCount);
@@ -94,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ------------ ORDEN DESC PRECIO --------------
-    document.getElementById("mas_caro").addEventListener("click", function(){
+    document.getElementById("mas_caro")?.addEventListener("click", function(){
 
         listaProductos.products.sort(function(a, b){
             return parseInt(b.cost) - parseInt(a.cost);
@@ -104,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ------------ ORDEN ASC PRECIO --------------
-    document.getElementById("mas_barato").addEventListener("click", function(){
+    document.getElementById("mas_barato")?.addEventListener("click", function(){
 
         listaProductos.products.sort(function(a, b){
             return parseInt(a.cost) - parseInt(b.cost);
@@ -114,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // -------------- DESAFIO: BUSCADOR --------------
-    document.getElementById("buscador").addEventListener("input", function(){
+    document.getElementById("buscador")?.addEventListener("input", function(){
 
         buscador = document.getElementById("buscador").value;
         showProducts();

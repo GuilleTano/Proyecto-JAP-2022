@@ -90,17 +90,28 @@ function showRelatedProducts() {
 
 
 //Funcion para comprar producto
-function Comprar(idP, miniatura, nombreP, monedaP, costoP){
+class Comprar{
 
-    this.idP = idP;
-    this.miniatura = miniatura;
-    this.nombreP = nombreP;
-    this.monedaP = monedaP;
-    this.costoP = costoP;
-    this.cantP = 1;
+    constructor(idP, miniatura, nombreP, monedaP, costoP){
+
+        this.idP = idP;
+        this.miniatura = miniatura;
+        this.nombreP = nombreP;
+        this.monedaP = monedaP;
+        this.costoP = costoP;
+        this.cantP = 1;
+    }
+
+    subTotal(){
+        return this.cantP * this.costoP;
+    }
+
+    set newCant(nuevoCantP){
+        this.cantP = nuevoCantP;
+        return this.cantP;
+    }
+
 }
-
-
 
 
 //Hacer funcion para nuevo comentrario
@@ -128,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     //AGREGAR NUEVO COMENTARIO
-    document.getElementById("btnEnviarComent").addEventListener("click", function () {
+    document.getElementById("btnEnviarComent")?.addEventListener("click", function () {
         let faltaDato = false;
         let newData = document.getElementById("new_coment").value;
         let newScore = parseInt(document.getElementById("score").value);
@@ -158,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         let compraNueva = new Comprar(infoProducto.id, infoProducto.images[0], infoProducto.name, infoProducto.currency, infoProducto.cost);
         console.log(compraNueva);
-        
+
         let compraNuevaString = JSON.stringify(compraNueva);
         localStorage.setItem("compraNueva", compraNuevaString);
 
