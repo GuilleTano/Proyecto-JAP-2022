@@ -13,7 +13,7 @@ function showProdInfo() {
             ${infoProducto.soldCount}</p>   
             <p><strong>Imágenes ilustrativas</strong></p>
             `;
-    document.getElementById("product_name").innerHTML += `<h2>${infoProducto.name}</h2>`;
+    document.getElementById("product_name").innerHTML = `<h2>${infoProducto.name}</h2>`;
     document.getElementById("product_info").innerHTML = productoActual;
 
     let imagesPrd="";
@@ -89,11 +89,10 @@ function showRelatedProducts() {
 }
 
 
-//Funcion para comprar producto
-class Comprar{
+//Clse para crear items del carrito
+class Carrito{
 
     constructor(idP, miniatura, nombreP, monedaP, costoP){
-
         this.idP = idP;
         this.miniatura = miniatura;
         this.nombreP = nombreP;
@@ -105,12 +104,10 @@ class Comprar{
     subTotal(){
         return this.cantP * this.costoP;
     }
-
     set newCant(nuevoCantP){
         this.cantP = nuevoCantP;
         return this.cantP;
     }
-
 }
 
 
@@ -165,13 +162,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     //BOTON COMPRAR
-    document.getElementById("boton_comprar").addEventListener("click",function(){
+    document.getElementById("boton_comprar")?.addEventListener("click",function(){
         
-        let compraNueva = new Comprar(infoProducto.id, infoProducto.images[0], infoProducto.name, infoProducto.currency, infoProducto.cost);
-        console.log(compraNueva);
+        let itemCarrito = new Carrito(infoProducto.id, infoProducto.images[0], infoProducto.name, infoProducto.currency, infoProducto.cost);
 
-        let compraNuevaString = JSON.stringify(compraNueva);
-        localStorage.setItem("compraNueva", compraNuevaString);
+        let itemCarritoString = JSON.stringify(itemCarrito);
+        localStorage.setItem("itemCarrito", itemCarritoString);
 
         window.location = "cart.html"
 

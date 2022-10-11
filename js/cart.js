@@ -1,8 +1,11 @@
+itemCarritoString = localStorage.getItem("itemCarrito");
+itemCarrito = JSON.parse(itemCarritoString);
+Object.setPrototypeOf(itemCarrito, Carrito.prototype);
 
-//------------------------------- CARRITO DE EJEMPLO -------------------------------
 let cantCarrito =0;
 let costoUnidad =0;
 
+//------------------------------- CARRITO DE EJEMPLO -------------------------------
 /*
 function showActualCart(){
     let defaultCart= "";
@@ -61,47 +64,42 @@ function cambiarCant(){
 
 
 //------------------------------- CARRITO CON BOTON COMPRAR -------------------------------
+function showCart(){
 
-
-function newSold(){
-    let newCart= "";
-
-    compraNuevaString = localStorage.getItem("compraNueva");
-    compraNueva = JSON.parse(compraNuevaString);
-    console.log(compraNueva);
-
-    Object.setPrototypeOf(compraNueva, Comprar.prototype);
-
-
-    costoUnidad = compraNueva.costoP;
-    cantCarrito = compraNueva.cantP;
+    idCantidad = itemCarrito.idP;
+    idSubTotal = itemCarrito.idP + "ST";
     
-    idCantidad = compraNueva.idP;
-    idSubTotal = compraNueva.idP + "ST";
-
-    newCart +=`<tr>
-    <td style="width:20%"><img src="${compraNueva.miniatura}" width="80" ></td>
-    <td style="width:20%">${compraNueva.nombreP}</td>
-    <td style="width:20%">${compraNueva.monedaP} ${costoUnidad}</td>
-    <td style="width:20%"><input type="text" class="form-control w-25" value="${cantCarrito}" onchange="cambiarCant()" id="${idCantidad}"></td>
-    <td style="width:20%"><strong>${compraNueva.monedaP} <span id="${idSubTotal}">${compraNueva.subTotal()}</span></strong></td>
+    let newItemCart =`<tr>
+    <td style="width:20%"><img src="${itemCarrito.miniatura}" width="80" ></td>
+    <td style="width:20%">${itemCarrito.nombreP}</td>
+    <td style="width:20%">${itemCarrito.monedaP} ${itemCarrito.costoP}</td>
+    <td style="width:20%"><input type="text" class="form-control w-25" value="${itemCarrito.cantP}" onchange="changeCant()" id="${idCantidad}"></td>
+    <td style="width:20%"><strong>${itemCarrito.monedaP} <span id="${idSubTotal}">${itemCarrito.subTotal()}</span></strong></td>
     </tr>
     `;
 
-    document.getElementById("cartTable").innerHTML += newCart;
+    document.getElementById("cartTable").innerHTML += newItemCart;
+}
 
+function changeCant(){
+
+    itemCarrito.newCant = document.getElementById(idCantidad).value;
+    let nuevoSubTot = itemCarrito.subTotal();
+
+    document.getElementById(idSubTotal).innerHTML = nuevoSubTot;
 }
 
 
-
-
 document.addEventListener("DOMContentLoaded", function(){
+
+    //Seprar el llamado del carrito con boton del carrito de ejemplo
+
 
     getJSONData(CART_PRUEBAS).then(function (resultado) {
         if (resultado.status === "ok") {
             actualCart = resultado.data;
             //showActualCart();
-            newSold();
+            showCart();
             console.log(actualCart);
 
         }
