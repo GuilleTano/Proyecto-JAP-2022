@@ -111,6 +111,14 @@ function showCart(){
 
 function changeCant(){
 
+    //TODO ESTA MAL
+
+    //ver de usar el input en lugar de onchange?
+
+    //usar this.value para pasar por parametro a la funcion del onchange
+    //Tengo que modificar el array y luego mostrarlo nuevamente en pantalla
+
+
     esteObjeto.newCant = document.getElementById(idCantidad).value;
     let nuevoSubTot = esteObjeto.subTotal();
 
@@ -121,7 +129,19 @@ function changeCant(){
     */
 
     document.getElementById(idSubTotal).innerHTML = nuevoSubTot;
+
+
 }
+
+function borrarProducto(){
+
+    //esta funcion debe modificar la lista
+    //llamamos la funcion desde el onclick y le pasamos por parametro el ID del producto
+    //podemos usar el ID para identificar el elemento a borrar
+
+    //luego debe volver a mostrar la lista - con showCart() por ejemplo
+}
+
 
 document.addEventListener("DOMContentLoaded", function(){
 
