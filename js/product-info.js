@@ -1,4 +1,3 @@
-let productsComents = [];
 
 function showProdInfo() {
 
@@ -58,7 +57,7 @@ function showStarsScore(puntos) {
 }
 
 function showProdComents() {
-
+    let productsComents = "";
     for (let i = 0; i < (comProducto).length; i++) {
 
         productsComents += `
@@ -88,29 +87,6 @@ function showRelatedProducts() {
     return relProd;
 }
 
-
-//Clase para crear items del carrito
-class Carrito{
-
-    constructor(idP, miniatura, nombreP, monedaP, costoP){
-        this.idP = idP;
-        this.miniatura = miniatura;
-        this.nombreP = nombreP;
-        this.monedaP = monedaP;
-        this.costoP = costoP;
-        this.cantP = 1;
-    }
-
-    subTotal(){
-        return this.cantP * this.costoP;
-    }
-    set newCant(nuevoCantP){
-        this.cantP = nuevoCantP;
-        return this.cantP;
-    }
-}
-
-
 //Nuevo comentario
 function newComents(){
     let faltaDato = false;
@@ -135,6 +111,28 @@ function newComents(){
     document.getElementById("new_coment").value="";
     document.getElementById("score").value="0";
 }
+
+//Clase para crear items del carrito
+class Carrito{
+
+    constructor(idP, miniatura, nombreP, monedaP, costoP){
+        this.idP = idP;
+        this.miniatura = miniatura;
+        this.nombreP = nombreP;
+        this.monedaP = monedaP;
+        this.costoP = costoP;
+        this.cantP = 1;
+    }
+
+    subTotal(){
+        return this.cantP * this.costoP;
+    }
+    set newCant(nuevoCantP){
+        this.cantP = nuevoCantP;
+        return this.cantP;
+    }
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
     getJSONData(PRODUCT_INFO_URL).then(function (resultado) {
@@ -165,14 +163,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-
     //BOTON COMPRAR
     document.getElementById("boton_comprar")?.addEventListener("click",function(){
         
         let itemCarrito = new Carrito(infoProducto.id, infoProducto.images[0], infoProducto.name, infoProducto.currency, infoProducto.cost);
 
+        if(localStorage.getItem("cartList")==true){
+
+            //Si existe el carrito en localStorage, descargarlo para añadir el nuevo item y volver a guardarlo
+
+            let cartList = [];
+            cartList.push(itemCarrito);
+            localStorage.setItem("cartList", JSON.stringify(cartList));
+        }
+        else{
+
+            //Si no existe, crearlo, guardar el item y guardarlo
+
+            let cartList = [];
+            cartList.push(itemCarrito);
+            localStorage.setItem("cartList", JSON.stringify(cartList));
+        }
+
+        cartList.push(itemCarrito);
+
+        localStorage.setItem("cartList", JSON.stringify(cartList));
+        /*
         let itemCarritoString = JSON.stringify(itemCarrito);
         localStorage.setItem("itemCarrito", itemCarritoString);
+        */
 
         window.location = "cart.html";
 

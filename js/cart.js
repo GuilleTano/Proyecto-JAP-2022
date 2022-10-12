@@ -62,6 +62,33 @@ function cambiarCant(){
 //------------------------------- CARRITO CON BOTON COMPRAR -------------------------------
 function showCart(){
 
+    let itemCartList = "";
+
+    cartList = JSON.parse(localStorage.getItem("cartList"));
+    console.log(cartList);
+
+    for (let i = 0; i < (cartList).length; i++) {
+
+        Object.setPrototypeOf(cartList[i], Carrito.prototype);
+
+        esteObjeto = cartList[i];
+        idCantidad = cartList[i].idP;
+        idSubTotal = cartList[i].idP + "ST";
+        
+        itemCartList +=`<tr>
+        <td style="width:20%"><img src="${cartList[i].miniatura}" width="80" ></td>
+        <td style="width:20%">${cartList[i].nombreP}</td>
+        <td style="width:20%">${cartList[i].monedaP} ${cartList[i].costoP}</td>
+        <td style="width:20%"><input type="text" class="form-control w-25" value="${cartList[i].cantP}" onchange="changeCant()" id="${idCantidad}"></td>
+        <td style="width:20%"><strong>${cartList[i].monedaP} <span id="${idSubTotal}">${cartList[i].subTotal()}</span></strong></td>
+        </tr>
+        `;
+    }
+    document.getElementById("cartTable").innerHTML = itemCartList;
+
+
+    //Carrito sin for
+    /*
     itemCarritoString = localStorage.getItem("itemCarrito");
     itemCarrito = JSON.parse(itemCarritoString);
     Object.setPrototypeOf(itemCarrito, Carrito.prototype);
@@ -79,12 +106,19 @@ function showCart(){
     `;
 
     document.getElementById("cartTable").innerHTML += newItemCart;
+    */
 }
 
 function changeCant(){
 
+    esteObjeto.newCant = document.getElementById(idCantidad).value;
+    let nuevoSubTot = esteObjeto.subTotal();
+
+    //Para carrito sin for
+    /*
     itemCarrito.newCant = document.getElementById(idCantidad).value;
     let nuevoSubTot = itemCarrito.subTotal();
+    */
 
     document.getElementById(idSubTotal).innerHTML = nuevoSubTot;
 }
