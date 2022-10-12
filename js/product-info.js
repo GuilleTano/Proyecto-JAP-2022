@@ -168,11 +168,10 @@ document.addEventListener("DOMContentLoaded", function () {
         
         let itemCarrito = new Carrito(infoProducto.id, infoProducto.images[0], infoProducto.name, infoProducto.currency, infoProducto.cost);
 
-        if(localStorage.getItem("cartList")==true){
+        if(localStorage.getItem("cartList")){
 
             //Si existe el carrito en localStorage, descargarlo para añadir el nuevo item y volver a guardarlo
-
-            let cartList = [];
+            cartList = JSON.parse(localStorage.getItem("cartList"));
             cartList.push(itemCarrito);
             localStorage.setItem("cartList", JSON.stringify(cartList));
         }
@@ -184,10 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
             cartList.push(itemCarrito);
             localStorage.setItem("cartList", JSON.stringify(cartList));
         }
-
-        cartList.push(itemCarrito);
-
-        localStorage.setItem("cartList", JSON.stringify(cartList));
         /*
         let itemCarritoString = JSON.stringify(itemCarrito);
         localStorage.setItem("itemCarrito", itemCarritoString);

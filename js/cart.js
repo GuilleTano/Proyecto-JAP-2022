@@ -54,7 +54,7 @@ function calcularSubTotal(){
 }
 function cambiarCant(){
 
-    let nuevoSubTot =document.getElementById(idCantidad).value * costoUnidad;
+    let nuevoSubTot = document.getElementById(idCantidad).value * costoUnidad;
     document.getElementById(idSubTotal).innerHTML = nuevoSubTot;
 }
 
@@ -84,8 +84,8 @@ function showCart(){
         </tr>
         `;
     }
-    document.getElementById("cartTable").innerHTML = itemCartList;
 
+    document.getElementById("cartTable").innerHTML = itemCartList;
 
     //Carrito sin for
     /*
@@ -114,15 +114,14 @@ function changeCant(){
     esteObjeto.newCant = document.getElementById(idCantidad).value;
     let nuevoSubTot = esteObjeto.subTotal();
 
-    //Para carrito sin for
-    /*
+    /* Para carrito sin for
+
     itemCarrito.newCant = document.getElementById(idCantidad).value;
     let nuevoSubTot = itemCarrito.subTotal();
     */
 
     document.getElementById(idSubTotal).innerHTML = nuevoSubTot;
 }
-
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -134,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function(){
             actualCart = resultado.data;
             //showActualCart();
             showCart();
-            console.log(actualCart);
+            //console.log(actualCart);
 
         }
         else {
