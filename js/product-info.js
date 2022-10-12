@@ -89,7 +89,7 @@ function showRelatedProducts() {
 }
 
 
-//Clse para crear items del carrito
+//Clase para crear items del carrito
 class Carrito{
 
     constructor(idP, miniatura, nombreP, monedaP, costoP){
@@ -111,7 +111,30 @@ class Carrito{
 }
 
 
-//Hacer funcion para nuevo comentrario
+//Nuevo comentario
+function newComents(){
+    let faltaDato = false;
+    let newData = document.getElementById("new_coment").value;
+    let newScore = parseInt(document.getElementById("score").value);
+    let today = new Date();
+    let datenow= today.toLocaleString("sv-SE");
+
+    if (newData === "") {
+        faltaDato = true;
+        alert("Debe escribir un comentario");
+    }
+    if (newScore >5 || newScore <1) {              
+        faltaDato = true;
+        alert("Debe elegir una puntuacion");
+    }
+    if(!faltaDato){
+        let newComent = `<li class="list-group-item"><strong>${localStorage.getItem("mailUsuario")}</strong> - ${datenow} - ${showStarsScore(newScore)}<br>
+        ${newData}</li>`;
+        document.getElementById("product_coments").innerHTML += newComent;
+    }
+    document.getElementById("new_coment").value="";
+    document.getElementById("score").value="0";
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     getJSONData(PRODUCT_INFO_URL).then(function (resultado) {
@@ -137,27 +160,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //AGREGAR NUEVO COMENTARIO
     document.getElementById("btnEnviarComent")?.addEventListener("click", function () {
-        let faltaDato = false;
-        let newData = document.getElementById("new_coment").value;
-        let newScore = parseInt(document.getElementById("score").value);
-        let today = new Date();
-        let datenow= today.toLocaleString("sv-SE");
 
-        if (newData === "") {
-            faltaDato = true;
-            alert("Debe escribir un comentario");
-        }
-        if (newScore >5 || newScore <1) {              
-            faltaDato = true;
-            alert("Debe elegir una puntuacion");
-        }
-        if(!faltaDato){
-            let newComent = `<li class="list-group-item"><strong>${localStorage.getItem("mailUsuario")}</strong> - ${datenow} - ${showStarsScore(newScore)}<br>
-            ${newData}</li>`;
-            document.getElementById("product_coments").innerHTML += newComent;
-        }
-        document.getElementById("new_coment").value="";
-        document.getElementById("score").value="0";
+        newComents();
+
     });
 
 
@@ -169,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let itemCarritoString = JSON.stringify(itemCarrito);
         localStorage.setItem("itemCarrito", itemCarritoString);
 
-        window.location = "cart.html"
+        window.location = "cart.html";
 
     });
 

@@ -1,7 +1,3 @@
-itemCarritoString = localStorage.getItem("itemCarrito");
-itemCarrito = JSON.parse(itemCarritoString);
-Object.setPrototypeOf(itemCarrito, Carrito.prototype);
-
 let cantCarrito =0;
 let costoUnidad =0;
 
@@ -66,6 +62,10 @@ function cambiarCant(){
 //------------------------------- CARRITO CON BOTON COMPRAR -------------------------------
 function showCart(){
 
+    itemCarritoString = localStorage.getItem("itemCarrito");
+    itemCarrito = JSON.parse(itemCarritoString);
+    Object.setPrototypeOf(itemCarrito, Carrito.prototype);
+
     idCantidad = itemCarrito.idP;
     idSubTotal = itemCarrito.idP + "ST";
     
@@ -92,7 +92,7 @@ function changeCant(){
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    //Seprar el llamado del carrito con boton del carrito de ejemplo
+    //Separar el llamado del carrito con boton del carrito de ejemplo
 
 
     getJSONData(CART_PRUEBAS).then(function (resultado) {
