@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         else{
 
-            //Si no existe, crearlo, guardar el item y guardarlo
+            //Si no existe, crearlo, pushear el item y guardarlo en LS
 
             let cartList = [];
             cartList.push(itemCarrito);

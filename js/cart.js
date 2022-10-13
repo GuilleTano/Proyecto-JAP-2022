@@ -1,6 +1,7 @@
 let cantCarrito =0;
 let costoUnidad =0;
 
+
 //------------------------------- CARRITO DE EJEMPLO -------------------------------
 /*
 function showActualCart(){
@@ -72,44 +73,41 @@ function showCart(){
         Object.setPrototypeOf(cartList[i], Carrito.prototype);
 
         esteObjeto = cartList[i];
-        idCantidad = cartList[i].idP;
+        idCantidad = "CT" + cartList[i].idP;
         idSubTotal = cartList[i].idP + "ST";
         
         itemCartList +=`<tr>
         <td style="width:20%"><img src="${cartList[i].miniatura}" width="80" ></td>
         <td style="width:20%">${cartList[i].nombreP}</td>
         <td style="width:20%">${cartList[i].monedaP} ${cartList[i].costoP}</td>
-        <td style="width:20%"><input type="text" class="form-control w-25" value="${cartList[i].cantP}" onchange="changeCant()" id="${idCantidad}"></td>
+        <td style="width:20%"><input type="text" class="form-control w-25" value="${cartList[i].cantP}" oninput="cambiarCantidad(${cartList[i].idP}, this.value)"></td>
         <td style="width:20%"><strong>${cartList[i].monedaP} <span id="${idSubTotal}">${cartList[i].subTotal()}</span></strong></td>
         </tr>
         `;
     }
 
     document.getElementById("cartTable").innerHTML = itemCartList;
-
-    //Carrito sin for
-    /*
-    itemCarritoString = localStorage.getItem("itemCarrito");
-    itemCarrito = JSON.parse(itemCarritoString);
-    Object.setPrototypeOf(itemCarrito, Carrito.prototype);
-
-    idCantidad = itemCarrito.idP;
-    idSubTotal = itemCarrito.idP + "ST";
-    
-    let newItemCart =`<tr>
-    <td style="width:20%"><img src="${itemCarrito.miniatura}" width="80" ></td>
-    <td style="width:20%">${itemCarrito.nombreP}</td>
-    <td style="width:20%">${itemCarrito.monedaP} ${itemCarrito.costoP}</td>
-    <td style="width:20%"><input type="text" class="form-control w-25" value="${itemCarrito.cantP}" onchange="changeCant()" id="${idCantidad}"></td>
-    <td style="width:20%"><strong>${itemCarrito.monedaP} <span id="${idSubTotal}">${itemCarrito.subTotal()}</span></strong></td>
-    </tr>
-    `;
-
-    document.getElementById("cartTable").innerHTML += newItemCart;
-    */
 }
 
-function changeCant(){
+function cambiarCantidad(productoID, nuevoValor){
+
+    cartList = JSON.parse(localStorage.getItem("cartList"));
+
+    for (let i = 0; i < (cartList).length; i++){
+
+        Object.setPrototypeOf(cartList[i], Carrito.prototype);
+
+        if(cartList[i].idP === productoID){
+
+            cartList[i].newCant = nuevoValor;
+        }
+
+    }
+
+    localStorage.setItem("cartList", JSON.stringify(cartList));
+
+    showCart();
+
 
     //TODO ESTA MAL
 
@@ -119,18 +117,11 @@ function changeCant(){
     //Tengo que modificar el array y luego mostrarlo nuevamente en pantalla
 
 
+    /*
     esteObjeto.newCant = document.getElementById(idCantidad).value;
     let nuevoSubTot = esteObjeto.subTotal();
-
-    /* Para carrito sin for
-
-    itemCarrito.newCant = document.getElementById(idCantidad).value;
-    let nuevoSubTot = itemCarrito.subTotal();
-    */
-
     document.getElementById(idSubTotal).innerHTML = nuevoSubTot;
-
-
+    */
 }
 
 function borrarProducto(){
