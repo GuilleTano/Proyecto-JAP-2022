@@ -176,20 +176,13 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("cartList", JSON.stringify(cartList));
         }
         else{
-
-            //Si no existe, crearlo, pushear el item y guardarlo en LS
+            //Si no existe, crear el array, pushear el item y guardar todo en localStorage
 
             let cartList = [];
             cartList.push(itemCarrito);
             localStorage.setItem("cartList", JSON.stringify(cartList));
         }
-        /*
-        let itemCarritoString = JSON.stringify(itemCarrito);
-        localStorage.setItem("itemCarrito", itemCarritoString);
-        */
 
         window.location = "cart.html";
-
     });
-
 });
