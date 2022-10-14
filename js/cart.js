@@ -1,7 +1,7 @@
+//------------------------------- CARRITO DE EJEMPLO -------------------------------
 let cantCarrito =0;
 let costoUnidad =0;
 
-//------------------------------- CARRITO DE EJEMPLO -------------------------------
 /*
 function showActualCart(){
     let defaultCart= "";
@@ -36,25 +36,34 @@ function cambiarCant(){
 }
 
 //------------------------------- CARRITO CON BOTON COMPRAR -------------------------------
-function showCart(){
+function emptyCart(){
+    document.getElementById("voidCart").innerHTML = `
+    <div class="alert alert-info" role="alert" style="text-align:center">Su carrito esta vacio</div>`;
+}
+
+function showCart() {
 
     let itemCartList = "";
 
     cartList = JSON.parse(localStorage.getItem("cartList"));
     console.log(cartList);
 
+    if(cartList.length < 1){
+        emptyCart();
+    }
+
     for (let i = 0; i < (cartList).length; i++) {
 
         Object.setPrototypeOf(cartList[i], Carrito.prototype);
-        
-        itemCartList +=`<tr>
-        <td style="width:20%"><img src="${cartList[i].miniatura}" width="80" ></td>
-        <td style="width:20%">${cartList[i].nombreP}</td>
-        <td style="width:20%">${cartList[i].monedaP} ${cartList[i].costoP}</td>
-        <td style="width:20%"><input type="text" class="form-control w-25" value="${cartList[i].cantP}" oninput="cambiarCantidad(${cartList[i].idP}, this.value)"></td>
-        <td style="width:20%"><strong>${cartList[i].monedaP} ${cartList[i].subTotal()}</strong></td>
-        <td style="width:20%"><button type="button" class="btn btn-success" id="boton_eliminar" onclick="borrarProducto(${cartList[i].idP})">Eliminar</button></td>
-        </tr>
+
+        itemCartList += `<tr>
+            <td style="width:20%"><img src="${cartList[i].miniatura}" width="80" ></td>
+            <td style="width:20%">${cartList[i].nombreP}</td>
+            <td style="width:20%">${cartList[i].monedaP} ${cartList[i].costoP}</td>
+            <td style="width:20%"><input type="text" class="form-control w-25" value="${cartList[i].cantP}" oninput="cambiarCantidad(${cartList[i].idP}, this.value)"></td>
+            <td style="width:20%"><strong>${cartList[i].monedaP} ${cartList[i].subTotal()}</strong></td>
+            <td style="width:20%"><button type="button" class="btn btn-danger" id="boton_eliminar" onclick="borrarProducto(${cartList[i].idP})">Eliminar</button></td>
+            </tr>
         `;
     }
     document.getElementById("cartTable").innerHTML = itemCartList;
@@ -94,14 +103,18 @@ function borrarProducto(productoID){
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    //Separar el llamado del carrito con boton del carrito de ejemplo
+    if(localStorage.getItem("cartList")){
+        showCart();
+    }
+    else{
+        emptyCart();
+    }
 
-
+    //LLAMADA AL CARRITO DEL SERVIDOR
     getJSONData(CART_PRUEBAS).then(function (resultado) {
         if (resultado.status === "ok") {
             actualCart = resultado.data;
             //showActualCart();
-            showCart();
             //console.log(actualCart);
 
         }

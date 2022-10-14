@@ -135,6 +135,7 @@ class Carrito{
 
 
 document.addEventListener("DOMContentLoaded", function () {
+
     getJSONData(PRODUCT_INFO_URL).then(function (resultado) {
         if (resultado.status === "ok") {
             infoProducto = resultado.data;

@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function(){
             <div class="container">
                 <div class="alert alert-danger alert-dismissible text-center" role="alert">
                     <div>Debe ingresar un mail valido</div>
-                    <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
             `;
@@ -29,15 +29,15 @@ document.addEventListener("DOMContentLoaded", function(){
             let passAlert= `
             <div class="container">
                 <div class="alert alert-danger alert-dismissible text-center" role="alert">
-                    <div>Debe ingresar un mail valido</div>
-                    <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div>Debe ingresar una clave</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
             `;
             document.getElementById("show-alerts").innerHTML = passAlert;
         }
         if(!faltaDato){
-            alert("Acceso correcto!");
+            //alert("Acceso correcto!");
             localStorage.setItem("mailUsuario", email);
             loginRedirection();
         }
