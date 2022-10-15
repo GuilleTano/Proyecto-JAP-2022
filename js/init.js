@@ -18,24 +18,49 @@ let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
 
-// **** MOSTRAR EMAIL DE USUARIO LOGUEADO ****
+// **** MOSTRAR USUARIO LOGUEADO Y MENU DE OPCIONES ****
 document.addEventListener("DOMContentLoaded", function(){
 
-  let userMenu =`
-  <div class="dropdown">
-  <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-  ${localStorage.getItem("mailUsuario")}
-  </button>
-  <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
-    <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="index.html">Cerrar sesión</a></li>
-  </ul>
-  </div>
-  `;
-  document.getElementById("navbarNav").innerHTML += userMenu;
+  if(localStorage.getItem("mailUsuario")){
+
+    let userMenu =`
+    <div class="dropdown">
+    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    ${localStorage.getItem("mailUsuario")}
+    </button>
+    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+      <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="index.html">Cerrar sesión</a></li>
+    </ul>
+    </div>
+    `;
+    document.getElementById("navbarNav").innerHTML += userMenu;
+
+  }
+
 });
+
+//Clase para crear items del carrito
+class Carrito{
+  constructor(idP, miniatura, nombreP, monedaP, costoP){
+      this.idP = idP;
+      this.miniatura = miniatura;
+      this.nombreP = nombreP;
+      this.monedaP = monedaP;
+      this.costoP = costoP;
+      this.cantP = 1;
+  }
+  subTotal(){
+      return this.cantP * this.costoP;
+  }
+  set newCant(nuevoCantP){
+      this.cantP = nuevoCantP;
+      return this.cantP;
+  }
+}
+
 
 let getJSONData = function(url){
     let result = {};

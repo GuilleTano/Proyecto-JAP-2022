@@ -1,16 +1,3 @@
-//------------------------------- CARRITO DE EJEMPLO -------------------------------
-function exampleCart(){
-
-    //let exampleProduct = actualCart.articles[0];
-
-    let exampleProduct = new Carrito(actualCart.articles[0].id, actualCart.articles[0].image, actualCart.articles[0].name, actualCart.articles[0].currency, actualCart.articles[0].unitCost);
-
-    let cartList = [];
-    cartList.push(exampleProduct);
-    localStorage.setItem("cartList", JSON.stringify(cartList));
-    //return console.log(exampleProduct);
-}
-
 //------------------------------- CARRITO CON BOTON COMPRAR -------------------------------
 function emptyCart(){
     document.getElementById("voidCart").innerHTML = `
@@ -37,6 +24,7 @@ function showCart() {
             </tr>
         `;
     }
+    console.log(itemCartList);
     document.getElementById("cartTable").innerHTML = itemCartList;
 }
 
@@ -76,24 +64,11 @@ function deleteProduct(productoID){
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-    
+
     if(localStorage.getItem("cartList")){
         showCart();
     }
     else{
         emptyCart();
     }
-    
-    //LLAMADA AL CARRITO DEL SERVIDOR
-    getJSONData(CART_PRUEBAS).then(function (resultado) {
-        if (resultado.status === "ok") {
-            actualCart = resultado.data;
-            //exampleCart();
-            //console.log(actualCart);
-
-        }
-        else {
-            alert("Hubo un problema al cargar la pagina");
-        }
-    });
 });

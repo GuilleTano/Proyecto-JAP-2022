@@ -113,6 +113,7 @@ function newComents(){
 }
 
 //Clase para crear items del carrito
+/*
 class Carrito{
 
     constructor(idP, miniatura, nombreP, monedaP, costoP){
@@ -132,7 +133,7 @@ class Carrito{
         return this.cantP;
     }
 }
-
+*/
 
 document.addEventListener("DOMContentLoaded", function () {
 
