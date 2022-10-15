@@ -10,21 +10,8 @@ document.addEventListener("DOMContentLoaded", function(){
         let faltaDato = false;
         let email = document.getElementById("email").value;
         let pass = document.getElementById("password").value;
-        if (email === "") {
-            
-            faltaDato = true;
-            let mailAlert= `
-            <div class="container">
-                <div class="alert alert-danger alert-dismissible text-center" role="alert">
-                    <div>Debe ingresar un mail valido</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-            `;
-            document.getElementById("show-alerts").innerHTML = mailAlert;
-        }
+
         if (pass === "") {
-                    
             faltaDato = true;
             let passAlert= `
             <div class="container">
@@ -34,7 +21,19 @@ document.addEventListener("DOMContentLoaded", function(){
                 </div>
             </div>
             `;
-            document.getElementById("show-alerts").innerHTML = passAlert;
+            document.getElementById("show-alerts").innerHTML += passAlert;
+        }
+        if (email === "") {
+            faltaDato = true;
+            let mailAlert= `
+            <div class="container">
+                <div class="alert alert-danger alert-dismissible text-center" role="alert">
+                    <div>Debe ingresar un mail valido</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            `;
+            document.getElementById("show-alerts").innerHTML += mailAlert;
         }
         if(!faltaDato){
             //alert("Acceso correcto!");
