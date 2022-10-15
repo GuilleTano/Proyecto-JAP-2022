@@ -14,7 +14,7 @@ function exampleCart(){
 //------------------------------- CARRITO CON BOTON COMPRAR -------------------------------
 function emptyCart(){
     document.getElementById("voidCart").innerHTML = `
-    <div class="alert alert-info" role="alert" style="text-align:center">Su carrito esta vacio</div>`;
+    <div class="alert alert-info mt-5 role="alert" style="text-align:center">Su carrito esta vacio</div>`;
 }
 
 function showCart() {
