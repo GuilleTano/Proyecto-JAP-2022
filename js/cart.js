@@ -1,4 +1,7 @@
-//------------------------------- CARRITO CON BOTON COMPRAR -------------------------------
+function backToCategories(){
+    window.location = "categories.html";
+}
+
 function emptyCart(){
     document.getElementById("voidCart").innerHTML = `
     <div class="alert alert-info mt-5 role="alert" style="text-align:center">Su carrito esta vacio</div>`;

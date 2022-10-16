@@ -40,7 +40,15 @@
       <h2>Carrito de compras</h2>
     </div>
     <div class="container" id="voidCart">
-      <h4 class="mb-3">Articulos a comprar</h4>
+      <div class="row">
+        <div class="col-9">
+          <h4 class="mb-3">Articulos a comprar</h4>
+        </div>
+        <div class="col-3">
+          <input type="radio" class="btn-check" id="volver_categorias" onclick="backToCategories()">
+          <label class="btn btn-light" for="volver_categorias"><i class="fas fa-cart-plus"></i> Seguir comprando</label>
+        </div>
+      </div>   
       <!-- Carrito -->
       <div>
         <table class="table" style="width:100%">

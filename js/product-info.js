@@ -1,7 +1,11 @@
+function backToList(){
+    window.location= "products.html";
+}
 
 function showProdInfo() {
 
     let productoActual = `
+        <div class="col-9" id="product_info">
             <p><strong>Precio</strong> <br>
             ${infoProducto.currency} ${infoProducto.cost}</p>
             <p><strong>Descripción</strong> <br>
@@ -11,6 +15,11 @@ function showProdInfo() {
             <p><strong>Cantidad de vendidos</strong> <br>
             ${infoProducto.soldCount}</p>   
             <p><strong>Imágenes ilustrativas</strong></p>
+        </div>
+        <div class="col-3">
+            <input type="radio" class="btn-check" id="volver_listado" onclick="backToList()">
+            <label class="btn btn-light" for="volver_listado"><i class="fas fa-arrow-left mr-1"></i>Volver al listado</label>
+        </div>
             `;
     document.getElementById("product_name").innerHTML = `<h2>${infoProducto.name}</h2>`;
     document.getElementById("product_info").innerHTML = productoActual;
@@ -37,7 +46,7 @@ function showProdInfo() {
     document.getElementById("related_products").innerHTML = showRelatedProducts();
 }
 
-function showStarsScore(puntos) {
+function showStarsScore(puntos) {v
     let starScore = 0;
     let starCheck = `<span class="fa fa-star checked"></span>`;
     let starEmpty = `<span class="fa fa-star"></span>`;
@@ -111,29 +120,6 @@ function newComents(){
     document.getElementById("new_coment").value="";
     document.getElementById("score").value="0";
 }
-
-//Clase para crear items del carrito
-/*
-class Carrito{
-
-    constructor(idP, miniatura, nombreP, monedaP, costoP){
-        this.idP = idP;
-        this.miniatura = miniatura;
-        this.nombreP = nombreP;
-        this.monedaP = monedaP;
-        this.costoP = costoP;
-        this.cantP = 1;
-    }
-
-    subTotal(){
-        return this.cantP * this.costoP;
-    }
-    set newCant(nuevoCantP){
-        this.cantP = nuevoCantP;
-        return this.cantP;
-    }
-}
-*/
 
 document.addEventListener("DOMContentLoaded", function () {
 
