@@ -78,7 +78,6 @@ function showProdComents() {
     document.getElementById("product_coments").innerHTML = productsComents;
 }
 
-//Productos Relacionados
 function showRelatedProducts() {
     let relProd="";
     for (let i = 0; i < (infoProducto.relatedProducts).length; i++) {
@@ -96,7 +95,6 @@ function showRelatedProducts() {
     return relProd;
 }
 
-//Nuevo comentario
 function newComents(){
     let faltaDato = false;
     let newData = document.getElementById("new_coment").value;

@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
-//Clase para crear items del carrito
+// **** CLASE PARA CREAR LOS ITEMS DEL CARRITO ****
 class Carrito{
   constructor(idP, miniatura, nombreP, monedaP, costoP){
       this.idP = idP;
