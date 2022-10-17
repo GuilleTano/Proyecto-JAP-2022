@@ -46,7 +46,7 @@ function showProdInfo() {
     document.getElementById("related_products").innerHTML = showRelatedProducts();
 }
 
-function showStarsScore(puntos) {v
+function showStarsScore(puntos) {
     let starScore = 0;
     let starCheck = `<span class="fa fa-star checked"></span>`;
     let starEmpty = `<span class="fa fa-star"></span>`;
