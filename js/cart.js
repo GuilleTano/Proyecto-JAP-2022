@@ -27,8 +27,11 @@ function showCart() {
             </tr>
         `;
     }
-    console.log(itemCartList);
     document.getElementById("cartTable").innerHTML = itemCartList;
+
+    cartSubtotal();
+
+    calcularCostoEnvio();
 }
 
 function changeCount(productoID, nuevoValor){
@@ -65,6 +68,42 @@ function deleteProduct(productoID){
         showCart();
     }
 }
+
+
+function cartSubtotal(){
+    let subTotalCart = 0;
+    for(let i =0; i< (cartList).length; i++){
+        Object.setPrototypeOf(cartList[i], Carrito.prototype);
+
+        subTotalCart = subTotalCart + cartList[i].subTotal();
+    }
+    document.getElementById("subTotalCart").innerHTML = subTotalCart;
+}
+
+
+function calcularCostoEnvio(tipoEnvio){
+
+    let costoEnvio=0;
+
+    switch (tipoEnvio) {
+        case standar:
+            costoEnvio = cartList[i].subTotal() * (5/100);
+            break;
+    
+        case express:
+            costoEnvio = cartList[i].subTotal() * (7/100);
+            break;
+
+         case premium:
+            costoEnvio = cartList[i].subTotal() * (15/100);
+            break;
+    }
+
+    return costoEnvio;
+}
+
+
+
 
 document.addEventListener("DOMContentLoaded", function(){
 
