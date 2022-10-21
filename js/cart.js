@@ -29,9 +29,40 @@ function showCart() {
     }
     document.getElementById("cartTable").innerHTML = itemCartList;
 
-    cartSubtotal();
+    
+    //APLICAR A TODO ESTO LOCAL STORAGE
 
-    calcularCostoEnvio();
+    let listaCostos =`
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-9">
+                <h5 class="mb-1">Subtotal</h5>
+                <p>Costo unitario del producto por cantidad</p>
+            </div>
+            <div class="col-3">${cartSubtotal()}</div>
+        </div>
+    </div>
+
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-9">
+                <h5 class="mb-1">Costo de envío</h5>
+                <p>Segun el tipo de envío</p>
+            </div>
+            <div class="col-3">${calcularCostoEnvio(tipoEnvio())}</div>
+        </div>
+    </div>
+
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-9">
+                <h5 class="mb-1">Total</h5>
+            </div>
+            <div class="col-3"><strong>9999</strong></div>
+        </div>
+    </div>
+    `;
+    document.getElementById("listaCostos").innerHTML = listaCostos;
 }
 
 function changeCount(productoID, nuevoValor){
@@ -73,29 +104,56 @@ function deleteProduct(productoID){
 function cartSubtotal(){
     let subTotalCart = 0;
     for(let i =0; i< (cartList).length; i++){
-        Object.setPrototypeOf(cartList[i], Carrito.prototype);
 
         subTotalCart = subTotalCart + cartList[i].subTotal();
     }
-    document.getElementById("subTotalCart").innerHTML = subTotalCart;
+    return subTotalCart;
+}
+
+function tipoEnvio(){
+
+    let tipoEnvio="";
+
+    if(document.getElementById("standardOp")){
+        tipoEnvio = 1;
+    }
+    if(document.getElementById("expressOp")){
+        tipoEnvio = 2;
+    }
+    if(document.getElementById("premiumOp")){
+        tipoEnvio = 3;
+    }
+    
+    return tipoEnvio;
 }
 
 
 function calcularCostoEnvio(tipoEnvio){
 
     let costoEnvio=0;
+    let subTotal = 0;
+
+    for(let i =0; i< (cartList).length; i++){
+
+        if(cartList[i].monedaP == "UYU"){
+            subTotal = cartList[i].subTotal() / 40;
+        }
+        else{
+            subTotal = cartList[i].subTotal();
+        }
+    }
 
     switch (tipoEnvio) {
-        case standar:
-            costoEnvio = cartList[i].subTotal() * (5/100);
+        case 1:
+            costoEnvio = subTotal * (5/100);
             break;
     
-        case express:
-            costoEnvio = cartList[i].subTotal() * (7/100);
+        case 2:
+            costoEnvio = subTotal * (7/100);
             break;
 
-         case premium:
-            costoEnvio = cartList[i].subTotal() * (15/100);
+         case 3:
+            costoEnvio = subTotal * (15/100);
             break;
     }
 
