@@ -118,7 +118,7 @@ class detallesEnvio{
 
 function tipoEnvio(inputID){
 
-    let tipoEnvio= 3;
+    //let tipoEnvio= 3;
 
     if(inputID === "standardOp"){
         tipoEnvio = 1;
