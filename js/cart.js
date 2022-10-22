@@ -29,8 +29,11 @@ function showCart() {
     }
     document.getElementById("cartTable").innerHTML = itemCartList;
 
-    
-    //APLICAR A TODO ESTO LOCAL STORAGE
+}
+
+function showCostos(){
+
+    cartList = JSON.parse(localStorage.getItem("cartList"));
 
     let listaCostos =`
     <div class="list-group-item">
@@ -49,7 +52,7 @@ function showCart() {
                 <h5 class="mb-1">Costo de envío</h5>
                 <p>Segun el tipo de envío</p>
             </div>
-            <div class="col-3">USD ${costoEnvio(tipoEnvio(), cartSubtotal())}</div>
+            <div class="col-3">USD ${costoEnvio(tiposEnvio(), cartSubtotal())}</div>
         </div>
     </div>
 
@@ -63,7 +66,11 @@ function showCart() {
     </div>
     `;
     document.getElementById("listaCostos").innerHTML = listaCostos;
+
 }
+
+
+
 
 function changeCount(productoID, nuevoValor){
 
@@ -102,8 +109,6 @@ function deleteProduct(productoID){
 
 
 //Crear un objeto nuevo para el total y el envio?
-
-
 class detallesEnvio{
 
     constructor(tipoEnvio, costoEnvio, costoTotal){
@@ -112,13 +117,12 @@ class detallesEnvio{
         this.costoTotal = costoTotal;
     }
 }
-
-
 //let nuevoEnvio = new detallesEnvio(tipoEnvio(), );
 
-function tipoEnvio(inputID){
 
-    //let tipoEnvio= 3;
+let tipoEnvio = 3;
+
+function tiposEnvio(inputID){
 
     if(inputID === "standardOp"){
         tipoEnvio = 1;
@@ -130,7 +134,8 @@ function tipoEnvio(inputID){
         tipoEnvio = 3;
     }
     console.log(tipoEnvio);
-    
+    console.log(cartList);
+
     cartList.tipoDeEnvio = tipoEnvio;
     return tipoEnvio;
 }
