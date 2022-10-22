@@ -70,19 +70,19 @@
       <div>
         <h4 class="mb-3">Tipo de envío</h4>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="tipoEnvio" id="premiumOp" onclick="tipoEnvio()" checked>
+          <input class="form-check-input" type="radio" name="tipoEnvio" id="premiumOp" oninput="tipoEnvio(this.id)" checked>
           <label class="form-check-label" for="premiumOp">
             Premium 2 a 5 días (15%)
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="tipoEnvio" id="expressOp" onclick="tipoEnvio()">
+          <input class="form-check-input" type="radio" name="tipoEnvio" id="expressOp" oninput="tipoEnvio(this.id)">
           <label class="form-check-label" for="expressOp">
             Express 5 a 8 días (7%)
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="tipoEnvio" id="standardOp" onclick="tipoEnvio()">
+          <input class="form-check-input" type="radio" name="tipoEnvio" id="standardOp" oninput="tipoEnvio(this.id)">
           <label class="form-check-label" for="standardOp">
             Standard 12 a 15 días (5%)
           </label>

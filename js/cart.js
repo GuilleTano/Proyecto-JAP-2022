@@ -49,7 +49,7 @@ function showCart() {
                 <h5 class="mb-1">Costo de envío</h5>
                 <p>Segun el tipo de envío</p>
             </div>
-            <div class="col-3">${calcularCostoEnvio(tipoEnvio())}</div>
+            <div class="col-3">USD ${costoEnvio(tipoEnvio(), cartSubtotal())}</div>
         </div>
     </div>
 
@@ -58,7 +58,7 @@ function showCart() {
             <div class="col-9">
                 <h5 class="mb-1">Total</h5>
             </div>
-            <div class="col-3"><strong>9999</strong></div>
+            <div class="col-3"><strong>USD 9999</strong></div>
         </div>
     </div>
     `;
@@ -101,66 +101,76 @@ function deleteProduct(productoID){
 }
 
 
-function cartSubtotal(){
-    let subTotalCart = 0;
-    for(let i =0; i< (cartList).length; i++){
+//Crear un objeto nuevo para el total y el envio?
 
-        subTotalCart = subTotalCart + cartList[i].subTotal();
+
+class detallesEnvio{
+
+    constructor(tipoEnvio, costoEnvio, costoTotal){
+        this.tipoEnvio = tipoEnvio;
+        this.costoEnvio = costoEnvio;
+        this.costoTotal = costoTotal;
     }
-    return subTotalCart;
 }
 
-function tipoEnvio(){
 
-    let tipoEnvio="";
+//let nuevoEnvio = new detallesEnvio(tipoEnvio(), );
 
-    if(document.getElementById("standardOp")){
+function tipoEnvio(inputID){
+
+    let tipoEnvio= 3;
+
+    if(inputID === "standardOp"){
         tipoEnvio = 1;
     }
-    if(document.getElementById("expressOp")){
+    if(inputID === "expressOp"){
         tipoEnvio = 2;
     }
-    if(document.getElementById("premiumOp")){
+    if(inputID === "premiumOp"){
         tipoEnvio = 3;
     }
+    console.log(tipoEnvio);
     
+    cartList.tipoDeEnvio = tipoEnvio;
     return tipoEnvio;
 }
 
-
-function calcularCostoEnvio(tipoEnvio){
-
-    let costoEnvio=0;
-    let subTotal = 0;
-
+function cartSubtotal(){
+    let subTotalCart = 0;
+    let costoDolares =0;
     for(let i =0; i< (cartList).length; i++){
-
         if(cartList[i].monedaP == "UYU"){
-            subTotal = cartList[i].subTotal() / 40;
+            costoDolares = cartList[i].subTotal() / 40;
         }
         else{
-            subTotal = cartList[i].subTotal();
+            costoDolares = cartList[i].subTotal();
         }
+        subTotalCart = subTotalCart + costoDolares;
     }
+    cartList.subtotalCarrito = subTotalCart;
+    return subTotalCart;
+}
+
+function costoEnvio(tipoEnvio, subTotalcarrito){
+    let costoEnvio=0;
 
     switch (tipoEnvio) {
         case 1:
-            costoEnvio = subTotal * (5/100);
+            costoEnvio = subTotalcarrito * (5/100);
             break;
     
         case 2:
-            costoEnvio = subTotal * (7/100);
+            costoEnvio = subTotalcarrito * (7/100);
             break;
 
          case 3:
-            costoEnvio = subTotal * (15/100);
+            costoEnvio = subTotalcarrito * (15/100);
             break;
     }
 
+    cartList.costoDeEnvio = costoEnvio;
     return costoEnvio;
 }
-
-
 
 
 document.addEventListener("DOMContentLoaded", function(){
