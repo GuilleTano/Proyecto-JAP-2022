@@ -62,13 +62,50 @@ function deleteProduct(productoID){
     else{
         localStorage.setItem("cartList", JSON.stringify(cartList));
         showCart();
+        calcularCostos();
     }
 }
 
 
 //************** COSTOS  **************
 
-/*function cartSubtotal(){
+function tiposEnvio(){
+
+    let tipoEnvio = 3;
+
+    if(document.getElementById("standardOp").checked){
+        tipoEnvio = 1;
+    }
+    if(document.getElementById("expressOp").checked){
+        tipoEnvio = 2;
+    }
+    if(document.getElementById("premiumOp").checked){
+        tipoEnvio = 3;
+    }
+
+    return tipoEnvio;
+}
+
+function costoEnvio(tipoEnvio, subTotalcarrito){
+    let costoEnvio=0;
+
+    switch (tipoEnvio) {
+        case 1:
+            costoEnvio = subTotalcarrito * (5/100);
+            break;
+    
+        case 2:
+            costoEnvio = subTotalcarrito * (7/100);
+            break;
+
+         case 3:
+            costoEnvio = subTotalcarrito * (15/100);
+            break;
+    }
+    return costoEnvio;
+}
+
+function subtotalCarrito(){
 
     cartList = JSON.parse(localStorage.getItem("cartList"));
 
@@ -86,70 +123,46 @@ function deleteProduct(productoID){
         }
         subTotalCart = subTotalCart + costoDolares;
     }
-    cartList.push(subTotalCart);
-}
-*/
-
-
-
-
-function tiposEnvio(){
-
-    let tipoEnvio = 3;
-    cartList = JSON.parse(localStorage.getItem("cartList"));
-
-    if(document.getElementById("standardOp").checked){
-        tipoEnvio = 1;
-    }
-    if(document.getElementById("expressOp").checked){
-        tipoEnvio = 2;
-    }
-    if(document.getElementById("premiumOp").checked){
-        tipoEnvio = 3;
-    }
-
-    cartList.envio = tipoEnvio;
-    localStorage.setItem("cartList", JSON.stringify(cartList));
     
-    console.log(cartList);
-    showCosto();
+    return subTotalCart;
+}
+
+function calcularCostos(){
+
+    let calcuSubtotal = subtotalCarrito();
+    let calcuEnvio = costoEnvio(tiposEnvio(), subtotalCarrito());
+    let calcutotal = calcuSubtotal + calcuEnvio;
+
+    /*
+    console.log("subtotal: " + calcuSubtotal);
+    console.log("envio: " + calcuEnvio);
+    console.log("total: " + total);
+    */
+
+    let listaCostos ={
+        subtotal: calcuSubtotal, 
+        envio: calcuEnvio, 
+        total: calcutotal
+    };
+
+    localStorage.setItem("listaCostos", JSON.stringify(listaCostos));
+
+    mostrarCostos()
 }
 
 
-/*
-function costoEnvio(tipoEnvio, subTotalcarrito){
-    let costoEnvio=0;
+function mostrarCostos(){
 
-    switch (tipoEnvio) {
-        case 1:
-            costoEnvio = subTotalcarrito * (5/100);
-            break;
-    
-        case 2:
-            costoEnvio = subTotalcarrito * (7/100);
-            break;
+    listaCostos = JSON.parse(localStorage.getItem("listaCostos"));
 
-         case 3:
-            costoEnvio = subTotalcarrito * (15/100);
-            break;
-    }
-
-    cartList.costoDeEnvio = costoEnvio;
-    return costoEnvio;
-}
-*/
-
-function showCosto(){
-
-
-    let listaCostos =`
+    let mostrarCost =`
     <div class="list-group-item">
         <div class="row">
             <div class="col-9">
                 <h5 class="mb-1">Subtotal</h5>
                 <p>Costo unitario del producto por cantidad</p>
             </div>
-            <div class="col-3">999999999999</div>
+            <div class="col-3">${listaCostos.subtotal}</div>
         </div>
     </div>
 
@@ -159,7 +172,7 @@ function showCosto(){
                 <h5 class="mb-1">Costo de envío</h5>
                 <p>Segun el tipo de envío</p>
             </div>
-            <div class="col-3">USD 6666666666666666666</div>
+            <div class="col-3">USD ${listaCostos.envio}</div>
         </div>
     </div>
 
@@ -168,11 +181,11 @@ function showCosto(){
             <div class="col-9">
                 <h5 class="mb-1">Total</h5>
             </div>
-            <div class="col-3"><strong>USD 9999</strong></div>
+            <div class="col-3"><strong>USD ${listaCostos.total}</strong></div>
         </div>
     </div>
     `;
-    document.getElementById("listaCostos").innerHTML = listaCostos;
+    document.getElementById("listaCostos").innerHTML = mostrarCost;
 
 }
 
@@ -182,7 +195,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     if(localStorage.getItem("cartList")){
         showCart();
-        showCosto();
+        calcularCostos();
+        mostrarCostos();
     }
     else{
         emptyCart();
