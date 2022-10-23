@@ -92,9 +92,10 @@ function deleteProduct(productoID){
 
 
 
-let tipoEnvio = 3;
+
 function tiposEnvio(){
 
+    let tipoEnvio = 3;
     cartList = JSON.parse(localStorage.getItem("cartList"));
 
     if(document.getElementById("standardOp").checked){
@@ -107,8 +108,10 @@ function tiposEnvio(){
         tipoEnvio = 3;
     }
 
-    cartList.tipoDeEnvio = tipoEnvio;
+    cartList.envio = tipoEnvio;
     localStorage.setItem("cartList", JSON.stringify(cartList));
+    
+    console.log(cartList);
     showCosto();
 }
 
@@ -137,10 +140,6 @@ function costoEnvio(tipoEnvio, subTotalcarrito){
 */
 
 function showCosto(){
-
-    cartList = JSON.parse(localStorage.getItem("cartList"));
-    console.log(cartList);
-
 
 
     let listaCostos =`
