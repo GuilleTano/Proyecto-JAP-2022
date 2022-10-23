@@ -11,7 +11,7 @@ function showCart() {
     
     let itemCartList = "";
     cartList = JSON.parse(localStorage.getItem("cartList"));
-    console.log(cartList);
+    //console.log(cartList);
 
     for (let i = 0; i < (cartList).length; i++) {
 
@@ -28,49 +28,7 @@ function showCart() {
         `;
     }
     document.getElementById("cartTable").innerHTML = itemCartList;
-
 }
-
-function showCostos(){
-
-    cartList = JSON.parse(localStorage.getItem("cartList"));
-
-    let listaCostos =`
-    <div class="list-group-item">
-        <div class="row">
-            <div class="col-9">
-                <h5 class="mb-1">Subtotal</h5>
-                <p>Costo unitario del producto por cantidad</p>
-            </div>
-            <div class="col-3">${cartSubtotal()}</div>
-        </div>
-    </div>
-
-    <div class="list-group-item">
-        <div class="row">
-            <div class="col-9">
-                <h5 class="mb-1">Costo de envío</h5>
-                <p>Segun el tipo de envío</p>
-            </div>
-            <div class="col-3">USD ${costoEnvio(tiposEnvio(), cartSubtotal())}</div>
-        </div>
-    </div>
-
-    <div class="list-group-item">
-        <div class="row">
-            <div class="col-9">
-                <h5 class="mb-1">Total</h5>
-            </div>
-            <div class="col-3"><strong>USD 9999</strong></div>
-        </div>
-    </div>
-    `;
-    document.getElementById("listaCostos").innerHTML = listaCostos;
-
-}
-
-
-
 
 function changeCount(productoID, nuevoValor){
 
@@ -108,42 +66,18 @@ function deleteProduct(productoID){
 }
 
 
-//Crear un objeto nuevo para el total y el envio?
-class detallesEnvio{
+//************** COSTOS  **************
 
-    constructor(tipoEnvio, costoEnvio, costoTotal){
-        this.tipoEnvio = tipoEnvio;
-        this.costoEnvio = costoEnvio;
-        this.costoTotal = costoTotal;
-    }
-}
-//let nuevoEnvio = new detallesEnvio(tipoEnvio(), );
+/*function cartSubtotal(){
 
+    cartList = JSON.parse(localStorage.getItem("cartList"));
 
-let tipoEnvio = 3;
-
-function tiposEnvio(inputID){
-
-    if(inputID === "standardOp"){
-        tipoEnvio = 1;
-    }
-    if(inputID === "expressOp"){
-        tipoEnvio = 2;
-    }
-    if(inputID === "premiumOp"){
-        tipoEnvio = 3;
-    }
-    console.log(tipoEnvio);
-    console.log(cartList);
-
-    cartList.tipoDeEnvio = tipoEnvio;
-    return tipoEnvio;
-}
-
-function cartSubtotal(){
     let subTotalCart = 0;
-    let costoDolares =0;
+    let costoDolares = 0;
+
     for(let i =0; i< (cartList).length; i++){
+        Object.setPrototypeOf(cartList[i], Carrito.prototype);
+
         if(cartList[i].monedaP == "UYU"){
             costoDolares = cartList[i].subTotal() / 40;
         }
@@ -152,10 +86,34 @@ function cartSubtotal(){
         }
         subTotalCart = subTotalCart + costoDolares;
     }
-    cartList.subtotalCarrito = subTotalCart;
-    return subTotalCart;
+    cartList.push(subTotalCart);
+}
+*/
+
+
+
+let tipoEnvio = 3;
+function tiposEnvio(){
+
+    cartList = JSON.parse(localStorage.getItem("cartList"));
+
+    if(document.getElementById("standardOp").checked){
+        tipoEnvio = 1;
+    }
+    if(document.getElementById("expressOp").checked){
+        tipoEnvio = 2;
+    }
+    if(document.getElementById("premiumOp").checked){
+        tipoEnvio = 3;
+    }
+
+    cartList.tipoDeEnvio = tipoEnvio;
+    localStorage.setItem("cartList", JSON.stringify(cartList));
+    showCosto();
 }
 
+
+/*
 function costoEnvio(tipoEnvio, subTotalcarrito){
     let costoEnvio=0;
 
@@ -176,12 +134,56 @@ function costoEnvio(tipoEnvio, subTotalcarrito){
     cartList.costoDeEnvio = costoEnvio;
     return costoEnvio;
 }
+*/
+
+function showCosto(){
+
+    cartList = JSON.parse(localStorage.getItem("cartList"));
+    console.log(cartList);
+
+
+
+    let listaCostos =`
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-9">
+                <h5 class="mb-1">Subtotal</h5>
+                <p>Costo unitario del producto por cantidad</p>
+            </div>
+            <div class="col-3">999999999999</div>
+        </div>
+    </div>
+
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-9">
+                <h5 class="mb-1">Costo de envío</h5>
+                <p>Segun el tipo de envío</p>
+            </div>
+            <div class="col-3">USD 6666666666666666666</div>
+        </div>
+    </div>
+
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-9">
+                <h5 class="mb-1">Total</h5>
+            </div>
+            <div class="col-3"><strong>USD 9999</strong></div>
+        </div>
+    </div>
+    `;
+    document.getElementById("listaCostos").innerHTML = listaCostos;
+
+}
+
 
 
 document.addEventListener("DOMContentLoaded", function(){
 
     if(localStorage.getItem("cartList")){
         showCart();
+        showCosto();
     }
     else{
         emptyCart();
