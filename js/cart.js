@@ -43,6 +43,7 @@ function changeCount(productoID, nuevoValor){
     }
     localStorage.setItem("cartList", JSON.stringify(cartList));
     showCart();
+    calcularCostos();
 }
 
 function deleteProduct(productoID){
@@ -65,7 +66,6 @@ function deleteProduct(productoID){
         calcularCostos();
     }
 }
-
 
 //************** COSTOS  **************
 
@@ -128,28 +128,18 @@ function subtotalCarrito(){
 }
 
 function calcularCostos(){
-
     let calcuSubtotal = subtotalCarrito();
     let calcuEnvio = costoEnvio(tiposEnvio(), subtotalCarrito());
     let calcutotal = calcuSubtotal + calcuEnvio;
 
-    /*
-    console.log("subtotal: " + calcuSubtotal);
-    console.log("envio: " + calcuEnvio);
-    console.log("total: " + total);
-    */
-
     let listaCostos ={
-        subtotal: calcuSubtotal, 
-        envio: calcuEnvio, 
-        total: calcutotal
+        subtotal: calcuSubtotal.toFixed(2), 
+        envio: calcuEnvio.toFixed(2), 
+        total: calcutotal.toFixed(2)
     };
-
     localStorage.setItem("listaCostos", JSON.stringify(listaCostos));
-
-    mostrarCostos()
+    mostrarCostos();
 }
-
 
 function mostrarCostos(){
 
@@ -162,7 +152,7 @@ function mostrarCostos(){
                 <h5 class="mb-1">Subtotal</h5>
                 <p>Costo unitario del producto por cantidad</p>
             </div>
-            <div class="col-3">${listaCostos.subtotal}</div>
+            <div class="col-3">USD ${listaCostos.subtotal}</div>
         </div>
     </div>
 
@@ -188,7 +178,6 @@ function mostrarCostos(){
     document.getElementById("listaCostos").innerHTML = mostrarCost;
 
 }
-
 
 
 document.addEventListener("DOMContentLoaded", function(){
