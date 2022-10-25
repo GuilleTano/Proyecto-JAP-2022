@@ -35,11 +35,11 @@
       </div>
     </div>
   </nav>
-  <main class="container">
-    <div class="text-center mt-5 mb-5">
+  <main class="container p-5">
+    <div class="text-center">
       <h2>Carrito de compras</h2>
     </div>
-    <div class="container" id="voidCart">
+    <div class="container p-5" id="voidCart">
       <div class="row">
         <div class="col-9">
           <h4 class="mb-3">Articulos a comprar</h4>
@@ -59,6 +59,7 @@
               <th scope="col">Costo</th>
               <th scope="col">Cantidad</th>
               <th scope="col">Subtotal</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody id="cartTable">
@@ -110,7 +111,6 @@
         </div>
       </div>
       <hr>
-
       <!-- Costos -->
       <div>
         <h4 class="mb-3">Costos</h4>     
@@ -119,6 +119,32 @@
           </div>
         </div>
       </div>
+      <hr>
+      <!-- Forma de pago -->
+      <div>
+        <h4 class="mb-3">Forma de pago</h4>
+        <div class="row">         
+        </div>
+
+        <!-- BOTON DE ACCESO AL MODAL -->
+        <div class="col-sm-12">
+          No ha seleccionado 
+          <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalPagos">
+            Seleccionar</button>
+
+            <div class="invalid-feedback">
+              Debe elegir un medio de pago
+            </div>
+        </div>
+      </div>
+
+      <!-- Boton finalizar compra-->
+      <div class="row mt-5">
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="button">Finalizar compra</button>
+        </div>
+      </div>
+
 
     </div>
 
@@ -142,9 +168,71 @@
       <div></div>
     </div>
   </div>
+
+
+  <!-- MODAL EN CONSTRUCICON -->
+
+  <div class="modal fade" id="modalPagos" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- TITULO MODAL-->
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Forma de pago</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!-- CUERPO MODAL-->
+        <div class="modal-body">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="formaPago" id="tarjCredito">
+            <label class="form-check-label" for="tarjCredito">
+              Tarjeta de crédito
+            </label>
+            <hr>
+            <div class="row">
+              <div class="col-6">
+                <label class="form-check-label" for="cardNumber">Número de tarjeta</label>
+                <input type="text" aria-label="numero tarjeta" class="form-control" id="cardNumber">
+              </div>
+              <div class="col-4">
+                <label class="form-check-label" for="CVV">Código de seg.</label>
+                <input type="text" aria-label="codigo seguridad" class="form-control" id="CVV">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 mt-3">
+                <label class="form-check-label" for="validDate">Vencimiento (MM/AA)</label>
+                <input type="text" aria-label="vencimiento" class="form-control" id="validDate">
+              </div>
+            </div>
+            </div>
+          <div class="form-check mt-4">
+            <input class="form-check-input" type="radio" name="formaPago" id="transBanco">
+            <label class="form-check-label" for="transBanco">
+              Transferencia bancaria
+            </label>
+            <hr>
+            <div class="row">
+              <div class="col-6">
+                <label class="form-check-label" for="countNumber">Número de cuenta</label>
+                <input type="text" aria-label="numero cuenta" class="form-control" id="countNumber">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- FOOTER MODAL-->
+        <div class="modal-footer">
+          <div class="form-check">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN DEL MODAL -->
+
+
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
-  
   <script src="js/cart.js"></script>
 
 </body>
