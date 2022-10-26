@@ -34,6 +34,24 @@ function changeCount(productoID, nuevoValor){
 
     cartList = JSON.parse(localStorage.getItem("cartList"));
 
+    if(nuevoValor < 1){
+        //preguntar si quiere borrar el articulo | hacer esto con un modal?
+        alert("Si la cantidad es 0 se borrara el producto");
+    }
+    else{
+        for (let i = 0; i < (cartList).length; i++){
+            Object.setPrototypeOf(cartList[i], Carrito.prototype);
+    
+            if(cartList[i].idP === productoID){
+                cartList[i].newCant = nuevoValor;
+            }
+        }
+        localStorage.setItem("cartList", JSON.stringify(cartList));
+        showCart();
+        calcularCostos();
+    }
+
+    /*
     for (let i = 0; i < (cartList).length; i++){
         Object.setPrototypeOf(cartList[i], Carrito.prototype);
 
@@ -44,6 +62,7 @@ function changeCount(productoID, nuevoValor){
     localStorage.setItem("cartList", JSON.stringify(cartList));
     showCart();
     calcularCostos();
+    */
 }
 
 function deleteProduct(productoID){
