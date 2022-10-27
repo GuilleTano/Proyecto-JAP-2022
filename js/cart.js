@@ -36,7 +36,9 @@ function changeCount(productoID, nuevoValor){
 
     if(nuevoValor < 1){
         //preguntar si quiere borrar el articulo | hacer esto con un modal?
-        alert("Si la cantidad es 0 se borrara el producto");
+        //hacer botones de + y - | bloquear para que el numero minimo sea 1
+        
+        alert("La cantidad del articulo no puede ser 0");
     }
     else{
         for (let i = 0; i < (cartList).length; i++){
