@@ -200,6 +200,91 @@ function mostrarCostos(){
 
 }
 
+//************ VALIDACIONES PARA EL FORM ************
+
+//Modal metodos de pago
+
+//Funcion que activa o desactiva los input segun el metodo elegido
+function payMethod(){
+    let transfer = document.getElementById("transfer");
+    let countNumber = document.getElementById("countNumber");
+    let cardOption = document.getElementById("cardOption");
+    let cardNumber = document.getElementById("cardNumber");
+    let CVV = document.getElementById("CVV");
+    let validDate = document.getElementById("validDate");
+
+    if(cardOption.checked){
+
+        countNumber.setAttribute("disabled", "");
+
+        cardNumber.removeAttribute("disabled");
+        CVV.removeAttribute("disabled");
+        validDate.removeAttribute("disabled");
+    }
+    else if(transfer.checked){
+        countNumber.removeAttribute("disabled");
+        cardNumber.setAttribute("disabled", "");
+        CVV.setAttribute("disabled", "");
+        validDate.setAttribute("disabled", "");
+    }
+}
+
+//Funcion para validar los datos del metodo de pago
+
+function modalValid(){
+
+    let validacion = false;
+    let transfer = document.getElementById("transfer");
+    let countNumber = document.getElementById("countNumber");
+
+    if(transfer.checked && countNumber.value === ""){
+        countNumber.classList.add("is-invalid");
+
+        countNumber.addEventListener("keyup", function(){
+
+            if(countNumber.value === ""){
+                countNumber.classList.remove("is-valid");
+                countNumber.classList.add("is-invalid");
+
+            }
+            else{
+                countNumber.classList.remove("is-invalid");
+                countNumber.classList.add("is-valid");
+            }
+        });
+    }
+    else{
+        validacion = true;
+    }
+
+    return validacion;
+}
+
+
+
+
+//Codigo de bootstrap
+(() => {
+    'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        modalValid();
+        if (!form.checkValidity() || !modalValid()) {
+          event.preventDefault();
+          event.stopPropagation();
+
+        }
+  
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+
 
 document.addEventListener("DOMContentLoaded", function(){
 
