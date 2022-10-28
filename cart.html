@@ -67,84 +67,98 @@
         </table>
       </div>
       <hr>
-      <!-- Tipo de envío -->
-      <div>
-        <h4 class="mb-3">Tipo de envío</h4>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="tipoEnvio" id="premiumOp" oninput="calcularCostos()" checked>
-          <label class="form-check-label" for="premiumOp">
-            Premium 2 a 5 días (15%)
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="tipoEnvio" id="expressOp" oninput="calcularCostos()">
-          <label class="form-check-label" for="expressOp">
-            Express 5 a 8 días (7%)
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="tipoEnvio" id="standardOp" oninput="calcularCostos()">
-          <label class="form-check-label" for="standardOp">
-            Standard 12 a 15 días (5%)
-          </label>
-        </div>
-      </div>
-      <br>
-      <!-- Direccion de envío -->
-      <div>
-        <h4 class="mb-3">Dirección de envío</h4>
-        <div class="row">
-          <div class="col-4">
-            <label for="streetName">Calle</label>
-            <input type="text" class="form-control" id="streetName" value="" name="streetName">
-          </div>
-          <div class="col-3">
-            <label for="streetNro">Numero</label>
-            <input type="text" class="form-control" id="streetNro" value="" name="streetNro">
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-4">
-            <label for="streetCorner">Esquina</label>
-            <input type="text" class="form-control" id="streetCorner" value="" name="streetCorner">
-          </div>
-        </div>
-      </div>
-      <hr>
-      <!-- Costos -->
-      <div>
-        <h4 class="mb-3">Costos</h4>     
-        <div class="row">
-          <div class="list-group" id="listaCostos">
-          </div>
-        </div>
-      </div>
-      <hr>
-      <!-- Forma de pago -->
-      <div>
-        <h4 class="mb-3">Forma de pago</h4>
-        <div class="row">         
-        </div>
 
-        <!-- BOTON DE ACCESO AL MODAL -->
-        <div class="col-sm-12">
-          No ha seleccionado 
-          <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalPagos">
-            Seleccionar</button>
-
+      <!-- INICIO DEL FORM -->
+      <form action="#" method="get" class="needs-validation" novalidate>
+      
+        <!-- Tipo de envío -->
+        <div>
+          <h4 class="mb-3">Tipo de envío</h4>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="premiumOp" oninput="calcularCostos()" checked>
+            <label class="form-check-label" for="premiumOp">
+              Premium 2 a 5 días (15%)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="expressOp" oninput="calcularCostos()">
+            <label class="form-check-label" for="expressOp">
+              Express 5 a 8 días (7%)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="standardOp" oninput="calcularCostos()">
+            <label class="form-check-label" for="standardOp">
+              Standard 12 a 15 días (5%)
+            </label>
+          </div>
+        </div>
+        <br>
+        <!-- Direccion de envío -->
+        <div class="mb-5">
+          <h4 class="mb-3">Dirección de envío</h4>
+          <div class="row">
+            <div class="col-5">
+              <label for="streetName">Calle</label>
+              <input type="text" class="form-control" id="streetName" value="" name="streetName" required>
+              <div class="invalid-feedback">
+                Debe ingresar una calle
+              </div>
+            </div>
+            <div class="col-3">
+              <label for="streetNro">Numero</label>
+              <input type="text" class="form-control" id="streetNro" value="" name="streetNro" required>
+              <div class="invalid-feedback">
+                Debe ingresar un numero de puerta
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-5">
+              <label for="streetCorner">Esquina</label>
+              <input type="text" class="form-control" id="streetCorner" value="" name="streetCorner" required>
+              <div class="invalid-feedback">
+                Debe ingresar una esquina o referencia
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <!-- Costos -->
+        <div class="mb-5">
+          <h4 class="mb-3">Costos</h4>
+          <div class="row">
+            <div class="list-group" id="listaCostos">
+            </div>
+          </div>
+        </div>
+        <hr>
+        <!-- Forma de pago -->
+        <div>
+          <h4 class="mb-3">Forma de pago</h4>
+          <div class="row">
+          </div>
+      
+          <!-- BOTON DE ACCESO AL MODAL -->
+          <div class="col-sm-12">
+            No ha seleccionado
+            <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalPagos">Seleccionar</button>
+      
             <div class="invalid-feedback">
               Debe elegir un medio de pago
             </div>
+          </div>
         </div>
-      </div>
-
-      <!-- Boton finalizar compra-->
-      <div class="row mt-5">
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" type="button">Finalizar compra</button>
+      
+        <!-- Boton finalizar compra-->
+        <div class="row mt-5">
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit">Finalizar compra</button>
+          </div>
         </div>
-      </div>
-
+      
+      
+      </form>
 
     </div>
 
@@ -183,51 +197,59 @@
           <h1 class="modal-title fs-5">Forma de pago</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+
         <!-- CUERPO MODAL-->
         <div class="modal-body">
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="formaPago" id="tarjCredito">
-            <label class="form-check-label" for="tarjCredito">
+            <input class="form-check-input" type="radio" name="formaPago" id="cardOption" onclick="payMethod()">
+            <label class="form-check-label" for="cardOption">
               Tarjeta de crédito
             </label>
             <hr>
             <div class="row">
               <div class="col-6">
                 <label class="form-check-label" for="cardNumber">Número de tarjeta</label>
-                <input type="text" aria-label="numero tarjeta" class="form-control" id="cardNumber">
+                <input type="text" aria-label="numero tarjeta" class="form-control" id="cardNumber" disabled>
               </div>
               <div class="col-4">
                 <label class="form-check-label" for="CVV">Código de seg.</label>
-                <input type="text" aria-label="codigo seguridad" class="form-control" id="CVV">
+                <input type="text" aria-label="codigo seguridad" class="form-control" id="CVV" disabled>
               </div>
             </div>
             <div class="row">
               <div class="col-6 mt-3">
                 <label class="form-check-label" for="validDate">Vencimiento (MM/AA)</label>
-                <input type="text" aria-label="vencimiento" class="form-control" id="validDate">
+                <input type="text" aria-label="vencimiento" class="form-control" id="validDate" disabled>
               </div>
             </div>
             </div>
+
           <div class="form-check mt-4">
-            <input class="form-check-input" type="radio" name="formaPago" id="transBanco">
-            <label class="form-check-label" for="transBanco">
+            <input class="form-check-input" type="radio" name="formaPago" id="transfer" onclick="payMethod()">
+            <label class="form-check-label" for="transfer">
               Transferencia bancaria
             </label>
             <hr>
             <div class="row">
               <div class="col-6">
                 <label class="form-check-label" for="countNumber">Número de cuenta</label>
-                <input type="text" aria-label="numero cuenta" class="form-control" id="countNumber">
+                <input type="text" aria-label="numero cuenta" class="form-control" id="countNumber" disabled>
+                <div class="invalid-feedback">
+                  Debe ingresar el numero de cuenta
+                </div>
               </div>
             </div>
           </div>
         </div>
+
         <!-- FOOTER MODAL-->
         <div class="modal-footer">
           <div class="form-check">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
           </div>
         </div>
+
+
       </div>
     </div>
   </div>
