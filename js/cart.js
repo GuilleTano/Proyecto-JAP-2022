@@ -244,6 +244,8 @@ function payMethod(){
 function validarTarjeta(){
     let validCard = false;
 
+    console.log(cardNumber.value, CVV.value, validDate.value);
+
     if(cardNumber.value === "" || CVV.value === "" || validDate.value === ""){
         metodoPago.classList.add("is-invalid");
         metodoPago.classList.add("text-danger");
@@ -290,7 +292,7 @@ function validarTarjeta(){
 }
 
 function validarTransferecia(){
-    validTrans = false;
+    let validTrans = false;
     if(accountNumber.value === ""){
         metodoPago.classList.add("is-invalid");
         metodoPago.classList.add("text-danger");
