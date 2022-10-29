@@ -21,7 +21,7 @@ function showCart() {
             <td style="width:20%"><img src="${cartList[i].miniatura}" width="80" ></td>
             <td style="width:20%">${cartList[i].nombreP}</td>
             <td style="width:20%">${cartList[i].monedaP} ${cartList[i].costoP}</td>
-            <td style="width:20%"><input type="text" class="form-control w-25" value="${cartList[i].cantP}" oninput="changeCount(${cartList[i].idP}, this.value)"></td>
+            <td style="width:20%"><input type="number" class="form-control w-50" min="1" value="${cartList[i].cantP}" oninput="changeCount(${cartList[i].idP}, this.value)"></td>
             <td style="width:20%"><strong>${cartList[i].monedaP} ${cartList[i].subTotal()}</strong></td>
             <td style="width:20%"><button type="button" class="btn btn-danger" id="boton_eliminar" onclick="deleteProduct(${cartList[i].idP})">Eliminar</button></td>
             </tr>
@@ -35,10 +35,18 @@ function changeCount(productoID, nuevoValor){
     cartList = JSON.parse(localStorage.getItem("cartList"));
 
     if(nuevoValor < 1){
-        //preguntar si quiere borrar el articulo | hacer esto con un modal?
-        //hacer botones de + y - | bloquear para que el numero minimo sea 1
         
-        alert("La cantidad del articulo no puede ser 0");
+        for (let i = 0; i < (cartList).length; i++){
+            Object.setPrototypeOf(cartList[i], Carrito.prototype);
+    
+            if(cartList[i].idP === productoID){
+                cartList[i].cantP = cartList[i].cantP;
+            }
+        }
+        localStorage.setItem("cartList", JSON.stringify(cartList));
+        showCart();
+        calcularCostos();
+
     }
     else{
         for (let i = 0; i < (cartList).length; i++){
@@ -231,7 +239,6 @@ function payMethod(){
     }
 }
 
-
 //Funcion para validar los datos del metodo de pago
 function validarTarjeta(){
     let validCard = false;
@@ -239,7 +246,7 @@ function validarTarjeta(){
     if(cardNumber.value === "" || CVV.value === "" || validDate.value === ""){
         metodoPago.classList.add("is-invalid");
         metodoPago.classList.add("text-danger");
-        
+
         cardNumber.addEventListener("keyup", function(){
 
             if(cardNumber.value === "" || CVV.value === "" || validDate.value === ""){
@@ -311,6 +318,7 @@ function ejecutarValidacion(){
     let validacion = false;
 
     if(validarTarjeta() || validarTransferecia()){
+
         validacion = true;
     }
     else{
