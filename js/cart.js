@@ -209,8 +209,9 @@ function mostrarCostos(){
 }
 
 //************ VALIDACIONES PARA EL FORM ************
+
 let transferOption = document.getElementById("transferOption");
-let countNumber = document.getElementById("countNumber");
+let accountNumber = document.getElementById("accountNumber");
 let cardOption = document.getElementById("cardOption");
 let cardNumber = document.getElementById("cardNumber");
 let CVV = document.getElementById("CVV");
@@ -222,8 +223,8 @@ let metodoPago = document.getElementById("metodoPago");
 function payMethod(){
 
     if(cardOption.checked){
-        countNumber.value = "";
-        countNumber.setAttribute("disabled", "");
+        accountNumber.value = "";
+        accountNumber.setAttribute("disabled", "");
         cardNumber.removeAttribute("disabled");
         CVV.removeAttribute("disabled");
         validDate.removeAttribute("disabled");
@@ -232,7 +233,7 @@ function payMethod(){
         cardNumber.value = "";
         CVV.value = "";
         validDate.value = "";
-        countNumber.removeAttribute("disabled");
+        accountNumber.removeAttribute("disabled");
         cardNumber.setAttribute("disabled", "");
         CVV.setAttribute("disabled", "");
         validDate.setAttribute("disabled", "");
@@ -290,12 +291,12 @@ function validarTarjeta(){
 
 function validarTransferecia(){
     validTrans = false;
-    if(countNumber.value === ""){
+    if(accountNumber.value === ""){
         metodoPago.classList.add("is-invalid");
         metodoPago.classList.add("text-danger");
-        countNumber.addEventListener("keyup", function(){
+        accountNumber.addEventListener("keyup", function(){
 
-            if(countNumber.value === ""){
+            if(accountNumber.value === ""){
                 metodoPago.classList.add("is-invalid");
                 metodoPago.classList.add("text-danger");
 
@@ -317,7 +318,7 @@ function validarTransferecia(){
 function ejecutarValidacion(){
     let validacion = false;
 
-    if(validarTarjeta() || validarTransferecia()){
+    if(validarTransferecia() || validarTarjeta()){
 
         validacion = true;
     }
