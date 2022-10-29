@@ -142,9 +142,8 @@
           <!-- BOTON DE ACCESO AL MODAL -->
           <div class="col-sm-12">
             No ha seleccionado
-            <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalPagos">Seleccionar</button>
-      
-            <div class="invalid-feedback">
+            <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalPagos" id="metodoPago">Seleccionar</button>
+            <div class="invalid-feedback" id="feedbackPayMethod">
               Debe elegir un medio de pago
             </div>
           </div>
@@ -225,7 +224,7 @@
             </div>
 
           <div class="form-check mt-4">
-            <input class="form-check-input" type="radio" name="formaPago" id="transfer" onclick="payMethod()">
+            <input class="form-check-input" type="radio" name="formaPago" id="transferOption" onclick="payMethod()">
             <label class="form-check-label" for="transfer">
               Transferencia bancaria
             </label>

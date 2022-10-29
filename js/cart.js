@@ -201,27 +201,29 @@ function mostrarCostos(){
 }
 
 //************ VALIDACIONES PARA EL FORM ************
-
+let transferOption = document.getElementById("transferOption");
+let countNumber = document.getElementById("countNumber");
+let cardOption = document.getElementById("cardOption");
+let cardNumber = document.getElementById("cardNumber");
+let CVV = document.getElementById("CVV");
+let validDate = document.getElementById("validDate");
+let metodoPago = document.getElementById("metodoPago");
 //Modal metodos de pago
 
 //Funcion que activa o desactiva los input segun el metodo elegido
 function payMethod(){
-    let transfer = document.getElementById("transfer");
-    let countNumber = document.getElementById("countNumber");
-    let cardOption = document.getElementById("cardOption");
-    let cardNumber = document.getElementById("cardNumber");
-    let CVV = document.getElementById("CVV");
-    let validDate = document.getElementById("validDate");
 
     if(cardOption.checked){
-
+        countNumber.value = "";
         countNumber.setAttribute("disabled", "");
-
         cardNumber.removeAttribute("disabled");
         CVV.removeAttribute("disabled");
         validDate.removeAttribute("disabled");
     }
-    else if(transfer.checked){
+    else if(transferOption.checked){
+        cardNumber.value = "";
+        CVV.value = "";
+        validDate.value = "";
         countNumber.removeAttribute("disabled");
         cardNumber.setAttribute("disabled", "");
         CVV.setAttribute("disabled", "");
@@ -229,37 +231,95 @@ function payMethod(){
     }
 }
 
+
 //Funcion para validar los datos del metodo de pago
+function validarTarjeta(){
+    let validCard = false;
 
-function modalValid(){
+    if(cardNumber.value === "" || CVV.value === "" || validDate.value === ""){
+        metodoPago.classList.add("is-invalid");
+        metodoPago.classList.add("text-danger");
+        
+        cardNumber.addEventListener("keyup", function(){
 
-    let validacion = false;
-    let transfer = document.getElementById("transfer");
-    let countNumber = document.getElementById("countNumber");
-
-    if(transfer.checked && countNumber.value === ""){
-        countNumber.classList.add("is-invalid");
-
-        countNumber.addEventListener("keyup", function(){
-
-            if(countNumber.value === ""){
-                countNumber.classList.remove("is-valid");
-                countNumber.classList.add("is-invalid");
-
+            if(cardNumber.value === "" || CVV.value === "" || validDate.value === ""){
+                metodoPago.classList.add("is-invalid");
+                metodoPago.classList.add("text-danger");
             }
             else{
-                countNumber.classList.remove("is-invalid");
-                countNumber.classList.add("is-valid");
+                metodoPago.classList.remove("is-invalid");
+                metodoPago.classList.remove("text-danger");
+            }
+        });
+        CVV.addEventListener("keyup", function(){
+
+            if(cardNumber.value === "" || CVV.value === "" || validDate.value === ""){
+                metodoPago.classList.add("is-invalid");
+                metodoPago.classList.add("text-danger");
+            }
+            else{
+                metodoPago.classList.remove("is-invalid");
+                metodoPago.classList.remove("text-danger");
+            }
+        });
+        validDate.addEventListener("keyup", function(){
+
+            if(cardNumber.value === "" || CVV.value === "" || validDate.value === ""){
+                metodoPago.classList.add("is-invalid");
+                metodoPago.classList.add("text-danger");
+            }
+            else{
+                metodoPago.classList.remove("is-invalid");
+                metodoPago.classList.remove("text-danger");
             }
         });
     }
     else{
+        validCard = true;
+    }
+
+    return validCard;
+}
+
+function validarTransferecia(){
+    validTrans = false;
+    if(countNumber.value === ""){
+        metodoPago.classList.add("is-invalid");
+        metodoPago.classList.add("text-danger");
+        countNumber.addEventListener("keyup", function(){
+
+            if(countNumber.value === ""){
+                metodoPago.classList.add("is-invalid");
+                metodoPago.classList.add("text-danger");
+
+            }
+            else{
+                metodoPago.classList.remove("is-invalid");
+                metodoPago.classList.remove("text-danger");
+            }
+        });
+    }
+    else{
+        validTrans = true;
+    }
+
+    return validTrans;
+}
+
+
+function ejecutarValidacion(){
+    let validacion = false;
+
+    if(validarTarjeta() || validarTransferecia()){
         validacion = true;
+    }
+    else{
+        metodoPago.classList.add("is-invalid");
+        metodoPago.classList.add("text-danger");
     }
 
     return validacion;
 }
-
 
 
 
@@ -273,8 +333,9 @@ function modalValid(){
     // Loop over them and prevent submission
     Array.from(forms).forEach(form => {
       form.addEventListener('submit', event => {
-        modalValid();
-        if (!form.checkValidity() || !modalValid()) {
+        
+        ejecutarValidacion();
+        if (!form.checkValidity() || !ejecutarValidacion()) {
           event.preventDefault();
           event.stopPropagation();
 
