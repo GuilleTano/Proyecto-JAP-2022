@@ -285,6 +285,8 @@ function validarTarjeta(){
         });
     }
     else{
+        metodoPago.classList.remove("is-invalid");
+        metodoPago.classList.remove("text-danger");
         validCard = true;
     }
 
@@ -310,6 +312,8 @@ function validarTransferecia(){
         });
     }
     else{
+        metodoPago.classList.remove("is-invalid");
+        metodoPago.classList.remove("text-danger");
         validTrans = true;
     }
 
@@ -350,6 +354,13 @@ function ejecutarValidacion(){
           event.preventDefault();
           event.stopPropagation();
 
+        }
+        else{
+            document.getElementById("voidCart").innerHTML += `
+            <div class="alert alert-success mt-5 alert-dismissible role="alert" style="text-align:center">
+            <div>¡Has comprado con éxito!</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
         }
   
         form.classList.add('was-validated')
