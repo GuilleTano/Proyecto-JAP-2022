@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function(){
             document.getElementById("show-alerts").innerHTML += mailAlert;
         }
         if(!faltaDato){
-            //alert("Acceso correcto!");
+
             localStorage.setItem("mailUsuario", email);
             loginRedirection();
         }

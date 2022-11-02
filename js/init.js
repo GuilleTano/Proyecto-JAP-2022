@@ -18,12 +18,20 @@ let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
 
+function verificarLogin(){
+
+  if(!localStorage.getItem("mailUsuario")){
+    window.location = "index.html";
+  }
+}
+
+
 // **** MOSTRAR USUARIO LOGUEADO Y MENU DE OPCIONES ****
 document.addEventListener("DOMContentLoaded", function(){
-
+  let userMenu ="";
   if(localStorage.getItem("mailUsuario")){
 
-    let userMenu =`
+    userMenu =`
     <div class="dropdown">
     <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     ${localStorage.getItem("mailUsuario")}
@@ -36,10 +44,14 @@ document.addEventListener("DOMContentLoaded", function(){
     </ul>
     </div>
     `;
-    document.getElementById("navbarNav").innerHTML += userMenu;
-
   }
-
+  else{
+    userMenu = `
+    <button class="btn btn-dark" type="button" onclick="window.location ='index.html'">Ingresar
+    </button>
+    `;
+  }
+  document.getElementById("navbarNav").innerHTML += userMenu;
 });
 
 // **** CLASE PARA CREAR LOS ITEMS DEL CARRITO ****
@@ -60,7 +72,6 @@ class Carrito{
       return this.cantP;
   }
 }
-
 
 let getJSONData = function(url){
     let result = {};

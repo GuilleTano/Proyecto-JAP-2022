@@ -369,7 +369,7 @@ function ejecutarValidacion(){
 
 
 document.addEventListener("DOMContentLoaded", function(){
-
+    verificarLogin();
     if(localStorage.getItem("cartList")){
         showCart();
         calcularCostos();
