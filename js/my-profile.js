@@ -3,15 +3,19 @@ let perfilUsuario = {};
 function mostrarDatos(){
 
     if(localStorage.getItem("perfilUsuario")){
-
         perfilUsuario= JSON.parse(localStorage.getItem("perfilUsuario"));
 
-        document.getElementById("firstName").value = perfilUsuario.name;
-        document.getElementById("secondName").value = perfilUsuario.name2;
-        document.getElementById("lastName").value = perfilUsuario.lastName;
-        document.getElementById("secondLastName").value = perfilUsuario.lastName2;
-        document.getElementById("profileEmail").value = perfilUsuario.mail;
-        document.getElementById("phoneNumber").value = perfilUsuario.phone;
+        if(localStorage.getItem("mailUsuario") === perfilUsuario.mail){
+            document.getElementById("firstName").value = perfilUsuario.name;
+            document.getElementById("secondName").value = perfilUsuario.name2;
+            document.getElementById("lastName").value = perfilUsuario.lastName;
+            document.getElementById("secondLastName").value = perfilUsuario.lastName2;
+            document.getElementById("profileEmail").value = perfilUsuario.mail;
+            document.getElementById("phoneNumber").value = perfilUsuario.phone;
+        }
+        else{
+            document.getElementById("profileEmail").value = localStorage.getItem("mailUsuario");
+        }
     }
     else{
         document.getElementById("profileEmail").value = localStorage.getItem("mailUsuario");
@@ -81,8 +85,13 @@ function guardarDatos(){
             mail: mail.value,
             phone: phone
         };
-    
         localStorage.setItem("perfilUsuario", JSON.stringify(perfilUsuario));
+
+        document.getElementById("cambiosGuardados").innerHTML += `
+        <div class="alert alert-success mt-5 alert-dismissible role="alert" style="text-align:center">
+        <div>¡Los datos fueron guardados!</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>`;
     }
 }
 

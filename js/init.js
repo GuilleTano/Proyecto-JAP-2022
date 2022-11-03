@@ -25,7 +25,6 @@ function verificarLogin(){
   }
 }
 
-
 // **** MOSTRAR USUARIO LOGUEADO Y MENU DE OPCIONES ****
 document.addEventListener("DOMContentLoaded", function(){
   let userMenu ="";

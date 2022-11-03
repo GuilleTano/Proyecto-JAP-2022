@@ -13,7 +13,7 @@ function exampleCart(){
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    localStorage.clear();
+    localStorage.removeItem("mailUsuario");
 
     //CARRITO EJEMPLO:
     getJSONData(CART_PRUEBAS).then(function (resultado) {
