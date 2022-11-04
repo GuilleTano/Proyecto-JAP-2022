@@ -30,6 +30,7 @@ function guardarDatos(){
     let lastName2= document.getElementById("secondLastName").value;
     let mail= document.getElementById("profileEmail");
     let phone= document.getElementById("phoneNumber").value;
+    //let image= document.getElementById("nuevaImagenPefil").value;
 
     let faltaDato = false;
 
@@ -95,13 +96,67 @@ function guardarDatos(){
     }
 }
 
+//Muestra la imagen al momento de subir el archivo
+function readURL(input) {
+
+    let reader = new FileReader();
+
+    reader.onload = function (e) {
+        document.getElementById('bannerImg').src =  e.target.result;
+    }
+    reader.readAsDataURL(input.files[0]);
+
+}
+
+//Convertir y guardar la imagen en localStorage
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+function guardarImagen(){
+
+    bannerImage = document.getElementById('bannerImg');
+    imgData = getBase64Image(bannerImage);
+    localStorage.setItem("imgData", imgData);
+}
+
+//Sacar la imagen del localStorage y mostrarla
+function mostrarImagen(){
+
+    bannerImg = document.getElementById('bannerImg');
+
+    if(localStorage.getItem('imgData')){
+        let dataImage = localStorage.getItem('imgData');
+        bannerImg.src = "data:image/png;base64," + dataImage;
+        
+        bannerImg.style = "width:120px;height:60px;";
+    }
+    else{
+        bannerImg.src = "img/img_perfil.png";
+    }
+    
+}
+
+
+
 document.addEventListener("DOMContentLoaded", function(){
     verificarLogin();
     mostrarDatos();
 
+    mostrarImagen();
+
     document.getElementById("boton_guardar").addEventListener("click", function(){
 
         guardarDatos();
+        guardarImagen();
     });
 
 });

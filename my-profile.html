@@ -53,8 +53,15 @@
   <main class="container px-5">
   
     <div class="container px-5 mt-4">
-      <h2>Perfil</h2>
-      <div class="my-5">
+
+      <div class="row">
+        <div class="col-6"><h2>Perfil</h2></div>
+        <div class="col-6">
+          <img src="img/img_perfil.png" class="img-thumbnail float-end" width="120" id="bannerImg">
+        </div>
+      </div>
+
+      <div class="mb-5">
         <hr>
         <div class="row">
           <div class="col-6">
@@ -91,6 +98,15 @@
               Este dato es obligatorio
             </div>
           </div>
+          <div class="col-6">
+            <label for="nuevaImagenPefil">Imagen de perfil</label>
+            <!--
+              <input type="file" class="form-control" id="nuevaImagenPefil">
+            -->
+            <input type='file' class="form-control" id="uploadBannerImage" onchange="readURL(this);">
+          </div>
+        </div>
+        <div class="row mt-3">
           <div class="col-6">
             <label for="phoneNumber">Telefono de contacto</label>
             <input type="phone" class="form-control" id="phoneNumber" value="" name="phoneNumber">
