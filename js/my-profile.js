@@ -107,7 +107,7 @@ function imagePreview(input) {
     let reader = new FileReader();
 
     reader.onload = function (e) {
-        document.getElementById('bannerImg').src =  e.target.result;
+        document.getElementById('profileImg').src =  e.target.result;
     }
     reader.readAsDataURL(input.files[0]);
 
@@ -127,32 +127,30 @@ function getBase64Image(img) {
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 function guardarImagen(){
-    bannerImage = document.getElementById('bannerImg');
-    imgData = getBase64Image(bannerImage);
+    profileImage = document.getElementById('profileImg');
+    imgData = getBase64Image(profileImage);
     localStorage.setItem("imgData", imgData);
 }
 
 //Sacar la imagen del localStorage y mostrarla
 function mostrarImagen(){
 
-    bannerImg = document.getElementById('bannerImg');
+    profileImg = document.getElementById('profileImg');
 
     if(localStorage.getItem('imgData')){
         let dataImage = localStorage.getItem('imgData');
-        bannerImg.src = "data:image/png;base64," + dataImage;
+        profileImg.src = "data:image/png;base64," + dataImage;
     }
     else{
-        bannerImg.src = "img/img_perfil.png";
+        profileImg.src = "img/img_perfil.png";
     }
 }
 
 document.addEventListener("DOMContentLoaded", function(){
     verificarLogin();
     mostrarDatos();
-    //mostrarImagen();
 
     document.getElementById("boton_guardar").addEventListener("click", function(){
         guardarDatos();
     });
-
 });
