@@ -1,4 +1,5 @@
 let perfilUsuario = {};
+let saveImage = false;
 
 function mostrarDatos(){
 
@@ -12,6 +13,7 @@ function mostrarDatos(){
             document.getElementById("secondLastName").value = perfilUsuario.lastName2;
             document.getElementById("profileEmail").value = perfilUsuario.mail;
             document.getElementById("phoneNumber").value = perfilUsuario.phone;
+            mostrarImagen();
         }
         else{
             document.getElementById("profileEmail").value = localStorage.getItem("mailUsuario");
@@ -30,7 +32,6 @@ function guardarDatos(){
     let lastName2= document.getElementById("secondLastName").value;
     let mail= document.getElementById("profileEmail");
     let phone= document.getElementById("phoneNumber").value;
-    //let image= document.getElementById("nuevaImagenPefil").value;
 
     let faltaDato = false;
 
@@ -78,6 +79,10 @@ function guardarDatos(){
     }
     if(!faltaDato){
 
+        if(saveImage){
+            guardarImagen();
+        }
+
         perfilUsuario ={
             name: name.value,
             name2: name2,
@@ -97,7 +102,7 @@ function guardarDatos(){
 }
 
 //Muestra la imagen al momento de subir el archivo
-function readURL(input) {
+function imagePreview(input) {
 
     let reader = new FileReader();
 
@@ -106,23 +111,22 @@ function readURL(input) {
     }
     reader.readAsDataURL(input.files[0]);
 
+    return saveImage = true;
 }
 
 //Convertir y guardar la imagen en localStorage
 function getBase64Image(img) {
-    var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
+    let canvas = document.createElement("canvas");
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
 
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-
-    var dataURL = canvas.toDataURL("image/png");
+    let contexto = canvas.getContext("2d");
+    contexto.drawImage(img, 0, 0);
+    let dataURL = canvas.toDataURL("image/png");
 
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 function guardarImagen(){
-
     bannerImage = document.getElementById('bannerImg');
     imgData = getBase64Image(bannerImage);
     localStorage.setItem("imgData", imgData);
@@ -136,27 +140,19 @@ function mostrarImagen(){
     if(localStorage.getItem('imgData')){
         let dataImage = localStorage.getItem('imgData');
         bannerImg.src = "data:image/png;base64," + dataImage;
-        
-        bannerImg.style = "width:120px;height:60px;";
     }
     else{
         bannerImg.src = "img/img_perfil.png";
     }
-    
 }
-
-
 
 document.addEventListener("DOMContentLoaded", function(){
     verificarLogin();
     mostrarDatos();
-
-    mostrarImagen();
+    //mostrarImagen();
 
     document.getElementById("boton_guardar").addEventListener("click", function(){
-
         guardarDatos();
-        guardarImagen();
     });
 
 });
