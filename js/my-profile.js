@@ -13,15 +13,16 @@ class Registro {
 
 function guardarDatosPerfil() {
 
-    let name1 = document.getElementById("firstName").value;
-    let name2 = document.getElementById("secondName").value;
-    let lastName1 = document.getElementById("lastName").value;
-    let lastName2 = document.getElementById("secondLastName").value;
-    let mail = document.getElementById("profileEmail").value;
-    let phone = document.getElementById("phoneNumber").value;
+    let name1 = document.getElementById("firstName");
+    let name2 = document.getElementById("secondName");
+    let lastName1 = document.getElementById("lastName");
+    let lastName2 = document.getElementById("secondLastName");
+    let mail = document.getElementById("profileEmail");
+    let phone = document.getElementById("phoneNumber");
     let faltaDato = false;
 
-    if(name1 === ""){
+    //Validacion de datos
+    if(name1.value === ""){
         faltaDato = true;
         name1.classList.add("is-invalid");
         name1.addEventListener("keyup", function(){
@@ -35,7 +36,7 @@ function guardarDatosPerfil() {
             }
         });
     }
-    if(lastName1 ===""){
+    if(lastName1.value ===""){
         faltaDato = true;
         lastName1.classList.add("is-invalid");
         lastName1.addEventListener("keyup", function(){
@@ -49,7 +50,7 @@ function guardarDatosPerfil() {
             }
         });
     }
-    if(mail ===""){
+    if(mail.value ===""){
         faltaDato = true;
         mail.classList.add("is-invalid");
         mail.addEventListener("keyup", function(){
@@ -63,9 +64,11 @@ function guardarDatosPerfil() {
             }
         });
     }
+
+    //Guardado de datos:
     if (!faltaDato) {
 
-        let perfil = new Registro(name1, name2, lastName1, lastName2, mail, phone);
+        let perfil = new Registro(name1.value, name2.value, lastName1.value, lastName2.value, mail.value, phone.value);
 
         if(saveImage){
             let profileImage = document.getElementById('profileImg');
@@ -75,7 +78,17 @@ function guardarDatosPerfil() {
 
         if(localStorage.getItem("listaPerfiles")){
             listaPerfiles = JSON.parse(localStorage.getItem("listaPerfiles"));
-            listaPerfiles.push(perfil);
+
+            for(i=0; i < listaPerfiles.length; i++){
+
+                if(perfil.correo === listaPerfiles[i].correo){
+                    
+                    listaPerfiles[i] = perfil;
+                }
+                else{
+                    listaPerfiles.push(perfil);
+                }
+            }
             localStorage.setItem("listaPerfiles", JSON.stringify(listaPerfiles));
         }
         else{
