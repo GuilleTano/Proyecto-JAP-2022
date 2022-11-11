@@ -1,69 +1,55 @@
-let perfilUsuario = {};
 let saveImage = false;
 
-function mostrarDatos(){
-
-    if(localStorage.getItem("perfilUsuario")){
-        perfilUsuario= JSON.parse(localStorage.getItem("perfilUsuario"));
-
-        if(localStorage.getItem("mailUsuario") === perfilUsuario.mail){
-            document.getElementById("firstName").value = perfilUsuario.name;
-            document.getElementById("secondName").value = perfilUsuario.name2;
-            document.getElementById("lastName").value = perfilUsuario.lastName;
-            document.getElementById("secondLastName").value = perfilUsuario.lastName2;
-            document.getElementById("profileEmail").value = perfilUsuario.mail;
-            document.getElementById("phoneNumber").value = perfilUsuario.phone;
-            mostrarImagen();
-        }
-        else{
-            document.getElementById("profileEmail").value = localStorage.getItem("mailUsuario");
-        }
-    }
-    else{
-        document.getElementById("profileEmail").value = localStorage.getItem("mailUsuario");
+class Registro {
+    constructor(name1, name2, lastName1, lastName2, mail, phone) {
+        this.nombre1 = name1;
+        this.nombre2 = name2;
+        this.apellido1 = lastName1;
+        this.apellido2 = lastName2;
+        this.correo = mail;
+        this.telefono = phone;
     }
 }
 
-function guardarDatos(){
+function guardarDatosPerfil() {
 
-    let name = document.getElementById("firstName");
-    let name2= document.getElementById("secondName").value;
-    let lastName= document.getElementById("lastName");
-    let lastName2= document.getElementById("secondLastName").value;
-    let mail= document.getElementById("profileEmail");
-    let phone= document.getElementById("phoneNumber").value;
-
+    let name1 = document.getElementById("firstName").value;
+    let name2 = document.getElementById("secondName").value;
+    let lastName1 = document.getElementById("lastName").value;
+    let lastName2 = document.getElementById("secondLastName").value;
+    let mail = document.getElementById("profileEmail").value;
+    let phone = document.getElementById("phoneNumber").value;
     let faltaDato = false;
 
-    if(name.value === ""){
+    if(name1 === ""){
         faltaDato = true;
-        name.classList.add("is-invalid");
-        name.addEventListener("keyup", function(){
-            if(name.value ===""){
-                name.classList.remove("is-valid");
-                name.classList.add("is-invalid");
+        name1.classList.add("is-invalid");
+        name1.addEventListener("keyup", function(){
+            if(name1.value ===""){
+                name1.classList.remove("is-valid");
+                name1.classList.add("is-invalid");
             }
             else{
-                name.classList.remove("is-invalid");
-                name.classList.add("is-valid");
+                name1.classList.remove("is-invalid");
+                name1.classList.add("is-valid");
             }
         });
     }
-    if(lastName.value ===""){
+    if(lastName1 ===""){
         faltaDato = true;
-        lastName.classList.add("is-invalid");
-        lastName.addEventListener("keyup", function(){
-            if(lastName.value ===""){
-                lastName.classList.remove("is-valid");
-                lastName.classList.add("is-invalid");
+        lastName1.classList.add("is-invalid");
+        lastName1.addEventListener("keyup", function(){
+            if(lastName1.value ===""){
+                lastName1.classList.remove("is-valid");
+                lastName1.classList.add("is-invalid");
             }
             else{
-                lastName.classList.remove("is-invalid");
-                lastName.classList.add("is-valid");
+                lastName1.classList.remove("is-invalid");
+                lastName1.classList.add("is-valid");
             }
         });
     }
-    if(mail.value===""){
+    if(mail ===""){
         faltaDato = true;
         mail.classList.add("is-invalid");
         mail.addEventListener("keyup", function(){
@@ -77,27 +63,66 @@ function guardarDatos(){
             }
         });
     }
-    if(!faltaDato){
+    if (!faltaDato) {
+
+        let perfil = new Registro(name1, name2, lastName1, lastName2, mail, phone);
 
         if(saveImage){
-            guardarImagen();
+            let profileImage = document.getElementById('profileImg');
+            imgData = getBase64Image(profileImage);
+            perfil.imagen = imgData;
         }
 
-        perfilUsuario ={
-            name: name.value,
-            name2: name2,
-            lastName: lastName.value,
-            lastName2: lastName2,
-            mail: mail.value,
-            phone: phone
-        };
-        localStorage.setItem("perfilUsuario", JSON.stringify(perfilUsuario));
+        if(localStorage.getItem("listaPerfiles")){
+            listaPerfiles = JSON.parse(localStorage.getItem("listaPerfiles"));
+            listaPerfiles.push(perfil);
+            localStorage.setItem("listaPerfiles", JSON.stringify(listaPerfiles));
+        }
+        else{
+            let listaPerfiles = [];
+            listaPerfiles.push(perfil);
+            localStorage.setItem("listaPerfiles", JSON.stringify(listaPerfiles));
+        }
 
         document.getElementById("cambiosGuardados").innerHTML += `
-        <div class="alert alert-success mt-5 alert-dismissible role="alert" style="text-align:center">
+        <div class="alert alert-success mt-5 alert-dismissible" role="alert" style="text-align:center">
         <div>¡Los datos fueron guardados!</div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`;
+    }
+}
+
+function mostrarDatosPerfil(){
+
+    if(localStorage.getItem("listaPerfiles")){
+        listaPerfiles= JSON.parse(localStorage.getItem("listaPerfiles"));
+
+        let profileImg = document.getElementById('profileImg');
+
+        for(i=0; i < listaPerfiles.length; i++){
+
+            if(localStorage.getItem("mailUsuario") === listaPerfiles[i].correo){
+                document.getElementById("firstName").value = listaPerfiles[i].nombre1;
+                document.getElementById("secondName").value = listaPerfiles[i].nombre2;
+                document.getElementById("lastName").value = listaPerfiles[i].apellido1;
+                document.getElementById("secondLastName").value = listaPerfiles[i].apellido2;
+                document.getElementById("profileEmail").value = listaPerfiles[i].correo;
+                document.getElementById("phoneNumber").value = listaPerfiles[i].telefono;
+                
+                if(listaPerfiles[i].imagen){
+                    profileImg.src = "data:image/png;base64," + listaPerfiles[i].imagen;
+                }
+                else{
+                    profileImg.src = "img/img_perfil.png";
+                }
+            }
+            else{
+                document.getElementById("profileEmail").value = localStorage.getItem("mailUsuario");
+            }
+        }
+    }
+    else{
+        document.getElementById("profileEmail").value = localStorage.getItem("mailUsuario");
     }
 }
 
@@ -114,7 +139,7 @@ function imagePreview(input) {
     return saveImage = true;
 }
 
-//Convertir y guardar la imagen en localStorage
+//Convertir la imagen para poder guardarla
 function getBase64Image(img) {
     let canvas = document.createElement("canvas");
     canvas.width = img.naturalWidth;
@@ -126,31 +151,12 @@ function getBase64Image(img) {
 
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
-function guardarImagen(){
-    profileImage = document.getElementById('profileImg');
-    imgData = getBase64Image(profileImage);
-    localStorage.setItem("imgData", imgData);
-}
-
-//Sacar la imagen del localStorage y mostrarla
-function mostrarImagen(){
-
-    profileImg = document.getElementById('profileImg');
-
-    if(localStorage.getItem('imgData')){
-        let dataImage = localStorage.getItem('imgData');
-        profileImg.src = "data:image/png;base64," + dataImage;
-    }
-    else{
-        profileImg.src = "img/img_perfil.png";
-    }
-}
 
 document.addEventListener("DOMContentLoaded", function(){
     verificarLogin();
-    mostrarDatos();
+    mostrarDatosPerfil();
 
     document.getElementById("boton_guardar").addEventListener("click", function(){
-        guardarDatos();
+        guardarDatosPerfil();
     });
 });
