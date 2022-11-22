@@ -46,6 +46,7 @@ function showProducts() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    verificarLogin();
     getJSONData(PRODUCTS_URL).then(function (resultado) {
         if (resultado.status === "ok") {
             listaProductos = resultado.data;

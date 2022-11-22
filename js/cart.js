@@ -11,8 +11,7 @@ function showCart() {
     
     let itemCartList = "";
     cartList = JSON.parse(localStorage.getItem("cartList"));
-    //console.log(cartList);
-
+    
     for (let i = 0; i < (cartList).length; i++) {
 
         Object.setPrototypeOf(cartList[i], Carrito.prototype);
@@ -60,19 +59,6 @@ function changeCount(productoID, nuevoValor){
         showCart();
         calcularCostos();
     }
-
-    /*
-    for (let i = 0; i < (cartList).length; i++){
-        Object.setPrototypeOf(cartList[i], Carrito.prototype);
-
-        if(cartList[i].idP === productoID){
-            cartList[i].newCant = nuevoValor;
-        }
-    }
-    localStorage.setItem("cartList", JSON.stringify(cartList));
-    showCart();
-    calcularCostos();
-    */
 }
 
 function deleteProduct(productoID){

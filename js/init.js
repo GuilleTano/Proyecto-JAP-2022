@@ -19,7 +19,6 @@ let hideSpinner = function(){
 }
 
 function verificarLogin(){
-
   if(!localStorage.getItem("mailUsuario")){
     window.location = "index.html";
   }

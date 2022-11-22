@@ -120,7 +120,8 @@ function newComents(){
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-
+    verificarLogin();
+    
     getJSONData(PRODUCT_INFO_URL).then(function (resultado) {
         if (resultado.status === "ok") {
             infoProducto = resultado.data;
